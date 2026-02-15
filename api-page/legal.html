@@ -22,28 +22,28 @@
     <style>
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
         
         body { 
-            background: #000000;
+            background: #ffffff;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.1) 0px, transparent 50%);
-            color: #ffffff; 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.05) 0px, transparent 50%);
+            color: #000000; 
             min-height: 100vh;
         }
 
         .glass {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(0, 0, 0, 0.02);
             backdrop-filter: blur(25px) saturate(180%);
             -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .neo-card {
-            background: rgba(255, 255, 255, 0.01);
+            background: rgba(0, 0, 0, 0.01);
             backdrop-filter: blur(40px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.06);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -53,7 +53,7 @@
         }
 
         .tab-btn.active {
-            color: #ffffff;
+            color: #000000;
         }
 
         .tab-btn.active::after {
@@ -63,8 +63,8 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: #ffffff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            background: #000000;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         .legal-content h3 {
@@ -74,7 +74,7 @@
             letter-spacing: 0.2em;
             margin-top: 2rem;
             margin-bottom: 0.75rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(0, 0, 0, 0.8);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -84,14 +84,14 @@
             content: '';
             width: 4px;
             height: 4px;
-            background: #3b82f6;
+            background: #2563eb;
             border-radius: 50%;
         }
 
         .legal-content p {
             font-size: 0.875rem;
             line-height: 1.8;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(0, 0, 0, 0.5);
             margin-bottom: 1.25rem;
         }
 
@@ -105,18 +105,18 @@
 </head>
 <body class="font-sans antialiased">
 
-    <header class="sticky top-0 z-50 glass border-b border-white/5">
+    <header class="sticky top-0 z-50 glass border-b border-black/5">
         <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <a href="/" class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.15)]">
-                    <span class="text-black font-black text-xl leading-none">D</span>
+                <a href="/" class="w-10 h-10 bg-black rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.1)]">
+                    <span class="text-white font-black text-xl leading-none">D</span>
                 </a>
                 <div>
-                    <h1 class="text-sm font-black tracking-tighter uppercase leading-none">Legal <span class="text-white/40">Center</span></h1>
-                    <p class="text-[8px] font-bold text-blue-500 uppercase tracking-[0.4em] mt-1">Compliance & Safety</p>
+                    <h1 class="text-sm font-black tracking-tighter uppercase leading-none text-black">Legal <span class="text-black/40">Center</span></h1>
+                    <p class="text-[8px] font-bold text-blue-600 uppercase tracking-[0.4em] mt-1">Compliance & Safety</p>
                 </div>
             </div>
-            <a href="/" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-all flex items-center gap-2">
+            <a href="/" class="text-[10px] font-black uppercase tracking-widest text-black/40 hover:text-black transition-all flex items-center gap-2">
                 <i class="material-icons text-sm">arrow_back</i>
                 Return to API
             </a>
@@ -124,18 +124,18 @@
     </header>
 
     <main class="max-w-3xl mx-auto px-6 py-16">
-        <div class="flex border-b border-white/5 mb-12">
-            <button onclick="switchTab('terms')" id="btn-terms" class="tab-btn active px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/30">Terms of Service</button>
-            <button onclick="switchTab('privacy')" id="btn-privacy" class="tab-btn px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/30">Privacy Policy</button>
+        <div class="flex border-b border-black/5 mb-12">
+            <button onclick="switchTab('terms')" id="btn-terms" class="tab-btn active px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-black/30">Terms of Service</button>
+            <button onclick="switchTab('privacy')" id="btn-privacy" class="tab-btn px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-black/30">Privacy Policy</button>
         </div>
 
         <div id="terms" class="legal-content animate-section">
             <div class="neo-card rounded-[2.5rem] p-10 md:p-12">
                 <div class="flex items-center gap-4 mb-10">
-                    <div class="w-1 h-10 bg-white rounded-full"></div>
+                    <div class="w-1 h-10 bg-black rounded-full"></div>
                     <div>
-                        <h2 class="text-2xl font-black tracking-tighter uppercase">Terms of <span class="text-white/30">Service</span></h2>
-                        <p class="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-1 m-0">Global Usage Agreement</p>
+                        <h2 class="text-2xl font-black tracking-tighter uppercase text-black">Terms of <span class="text-black/30">Service</span></h2>
+                        <p class="text-[9px] font-bold text-black/20 uppercase tracking-widest mt-1 m-0">Global Usage Agreement</p>
                     </div>
                 </div>
                 
@@ -147,9 +147,9 @@
 
                 <h3>03. Prohibited Conduct</h3>
                 <p>You agree not to: 
-                    <br><span class="text-white/60">• Attempt to reverse engineer or bypass API security measures.</span>
-                    <br><span class="text-white/60">• Use the service for illegal activities or spamming.</span>
-                    <br><span class="text-white/60">• Exceed the rate limits intentionally to disrupt the service.</span>
+                    <br><span class="text-black/70">• Attempt to reverse engineer or bypass API security measures.</span>
+                    <br><span class="text-black/70">• Use the service for illegal activities or spamming.</span>
+                    <br><span class="text-black/70">• Exceed the rate limits intentionally to disrupt the service.</span>
                 </p>
 
                 <h3>04. Disclaimer of Warranty</h3>
@@ -158,11 +158,11 @@
                 <h3>05. Limitation of Liability</h3>
                 <p>Dinzo Network shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use our API services.</p>
                 
-                <div class="mt-12 pt-8 border-t border-white/5 flex justify-between items-center">
-                    <p class="text-[9px] font-black text-white/10 uppercase tracking-[0.3em]">Last Updated: Feb 2026</p>
+                <div class="mt-12 pt-8 border-t border-black/5 flex justify-between items-center">
+                    <p class="text-[9px] font-black text-black/10 uppercase tracking-[0.3em]">Last Updated: Feb 2026</p>
                     <div class="flex gap-2">
-                        <div class="w-1.5 h-1.5 rounded-full bg-white/10"></div>
-                        <div class="w-1.5 h-1.5 rounded-full bg-white/10"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-black/10"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-black/10"></div>
                     </div>
                 </div>
             </div>
@@ -171,10 +171,10 @@
         <div id="privacy" class="legal-content hidden animate-section">
             <div class="neo-card rounded-[2.5rem] p-10 md:p-12">
                 <div class="flex items-center gap-4 mb-10">
-                    <div class="w-1 h-10 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+                    <div class="w-1 h-10 bg-blue-600 rounded-full shadow-[0_0_15px_rgba(37,99,235,0.3)]"></div>
                     <div>
-                        <h2 class="text-2xl font-black tracking-tighter uppercase">Privacy <span class="text-white/30">Policy</span></h2>
-                        <p class="text-[9px] font-bold text-blue-500/40 uppercase tracking-widest mt-1 m-0">Data Protection Standards</p>
+                        <h2 class="text-2xl font-black tracking-tighter uppercase text-black">Privacy <span class="text-black/30">Policy</span></h2>
+                        <p class="text-[9px] font-bold text-blue-600/40 uppercase tracking-widest mt-1 m-0">Data Protection Standards</p>
                     </div>
                 </div>
 
@@ -193,18 +193,18 @@
                 <h3>05. Security</h3>
                 <p>We implement industry-standard security measures to protect your data. However, no method of transmission over the internet is 100% secure.</p>
 
-                <div class="mt-12 pt-8 border-t border-white/5 flex justify-between items-center">
-                    <p class="text-[9px] font-black text-white/10 uppercase tracking-[0.3em]">Last Updated: Feb 2026</p>
+                <div class="mt-12 pt-8 border-t border-black/5 flex justify-between items-center">
+                    <p class="text-[9px] font-black text-black/10 uppercase tracking-[0.3em]">Last Updated: Feb 2026</p>
                     <div class="flex gap-2">
-                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500/20"></div>
-                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500/20"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-blue-600/20"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-blue-600/20"></div>
                     </div>
                 </div>
             </div>
         </div>
 
         <footer class="mt-20 text-center">
-            <p class="text-[9px] font-black text-white/10 uppercase tracking-[0.5em]">Dinzo Apis Framework © 2026</p>
+            <p class="text-[9px] font-black text-black/10 uppercase tracking-[0.5em]">Dinzo Apis Framework © 2026</p>
         </footer>
     </main>
 
