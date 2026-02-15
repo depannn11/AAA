@@ -45,39 +45,32 @@
         }
       }
     },
-    "/ai/skincolor": {
-      "get": {
-        "summary": "AI Skin Color Editor",
-        "description": "Mengubah warna kulit karakter pada gambar menjadi hitam atau putih menggunakan Gemini AI.",
-        "tags": ["AI"],
-        "parameters": [
-          {
-            "name": "url",
-            "in": "query",
-            "required": true,
-            "description": "URL gambar yang ingin diedit",
-            "schema": { "type": "string", "format": "uri" }
-          },
-          {
-            "name": "action",
-            "in": "query",
-            "required": true,
-            "description": "Pilih 'hitam' untuk menghitamkan atau 'putih' untuk memutihkan",
-            "schema": { "type": "string", "enum": ["hitam", "putih"] }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Berhasil mengedit gambar",
-            "content": {
-              "image/png": {
-                "schema": { "type": "string", "format": "binary" }
-              }
-            }
-          }
-        }
+    "/ai/copilot-voice": {
+  "get": {
+    "summary": "Copilot Voice AI",
+    "description": "Tanya jawab dengan AI Copilot dan dapatkan jawaban dalam bentuk audio (MP3).",
+    "tags": ["AI"],
+    "parameters": [
+      {
+        "name": "text",
+        "in": "query",
+        "required": true,
+        "description": "Pertanyaan untuk AI",
+        "schema": { "type": "string", "example": "Siapa penemu listrik?" }
+      },
+      {
+        "name": "model",
+        "in": "query",
+        "required": false,
+        "description": "default, think-deeper, atau gpt-5",
+        "schema": { "type": "string", "default": "default" }
       }
-    },
+    ],
+    "responses": {
+      "200": { "description": "Audio MP3" }
+    }
+  }
+},
       "/ai/copilot": {
   "get": {
     "summary": "Copilot Chat",
