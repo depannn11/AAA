@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinzo Apis | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'monospace'],
+                        'sans': ['Plus Jakarta Sans', 'sans-serif']
+                    },
+                    animation: {
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        
+        body { 
+            background: #000000;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(147, 51, 234, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(15, 15, 15, 1) 0px, transparent 80%);
+            color: #ffffff; 
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .neo-card {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .neo-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary {
+            background: #ffffff;
+            color: #000000;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-flow { animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <header class="sticky top-0 z-50 glass border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                    <i class="material-icons text-black text-xl">bolt</i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-tighter leading-none uppercase">DINZO <span class="text-white/40">APIS</span></h1>
+                    <span class="text-[8px] font-bold text-blue-500 uppercase tracking-[0.4em]">v2.0</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-8">
+                <nav class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-white/40">
+                    <a href="/docs" class="hover:text-white transition-colors">Documentation</a>
+                    <a href="https://wa.me/6288242449961" class="hover:text-white transition-colors">Support</a>
+                </nav>
+                <div class="px-4 py-2 glass rounded-lg flex items-center gap-2 border-green-500/20">
+                    <div class="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.8)]"></div>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-green-500">Online</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-20">
+        <section class="mb-40 animate-flow">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                <span class="text-[9px] font-bold uppercase tracking-widest text-blue-400">High Performance Infrastructure</span>
+            </div>
+            <h2 class="text-6xl md:text-9xl font-extrabold mb-10 tracking-tighter leading-[0.85]">
+                Dinzo <span class="text-white/20">Apis.</span>
+            </h2>
+            <p class="text-white/40 text-lg md:text-2xl max-w-3xl mb-12 leading-relaxed font-medium">
+                Antarmuka API berperforma tinggi untuk kebutuhan pengembangan aplikasi modern. Stabil, cepat, dan terintegrasi secara teknis.
+            </p>
+            <div class="flex flex-wrap gap-5">
+                <a href="/docs" class="btn-primary px-12 py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-3">
+                    Explore Docs <i class="material-icons text-sm">arrow_forward</i>
+                </a>
+                <a href="https://wa.me/6288242449961" class="px-12 py-5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] glass hover:bg-white/10 transition-all border-white/10">
+                    Contact Owner
+                </a>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40 animate-flow" style="animation-delay: 0.2s;">
+            <div class="neo-card p-10 rounded-[2.5rem]">
+                <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center mb-8 border-white/10">
+                    <i class="material-icons text-white">bolt</i>
+                </div>
+                <h4 class="text-xl font-bold mb-4 tracking-tight">Low Latency</h4>
+                <p class="text-sm text-white/40 leading-relaxed">Response rate yang dioptimasi untuk memastikan kecepatan eksekusi data di bawah 200ms secara konsisten.</p>
+            </div>
+            <div class="neo-card p-10 rounded-[2.5rem]">
+                <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center mb-8 border-white/10">
+                    <i class="material-icons text-white">code</i>
+                </div>
+                <h4 class="text-xl font-bold mb-4 tracking-tight">Structured Data</h4>
+                <p class="text-sm text-white/40 leading-relaxed">Format JSON yang rapi dan konsisten memudahkan proses integrasi pada berbagai bahasa pemrograman.</p>
+            </div>
+            <div class="neo-card p-10 rounded-[2.5rem]">
+                <div class="w-12 h-12 glass rounded-2xl flex items-center justify-center mb-8 border-white/10">
+                    <i class="material-icons text-white">security</i>
+                </div>
+                <h4 class="text-xl font-bold mb-4 tracking-tight">Stable Uptime</h4>
+                <p class="text-sm text-white/40 leading-relaxed">Infrastruktur server yang dipantau 24/7 untuk menjamin stabilitas setiap endpoint di lingkungan produksi.</p>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-6 animate-flow" style="animation-delay: 0.4s;">
+            <div class="glass p-10 rounded-[2rem] text-center border-white/5">
+                <p class="text-[9px] font-black text-white/20 uppercase tracking-[0.3em] mb-3">Total Endpoints</p>
+                <h5 id="total-endpoints" class="text-5xl font-black italic tracking-tighter">00</h5>
+            </div>
+            <div class="glass p-10 rounded-[2rem] text-center border-white/5">
+                <p class="text-[9px] font-black text-white/20 uppercase tracking-[0.3em] mb-3">System Status</p>
+                <h5 class="text-5xl font-black italic tracking-tighter text-green-500">Live</h5>
+            </div>
+            <div class="glass p-10 rounded-[2rem] text-center border-white/5">
+                <p class="text-[9px] font-black text-white/20 uppercase tracking-[0.3em] mb-3">Security Level</p>
+                <h5 class="text-5xl font-black italic tracking-tighter">AES</h5>
+            </div>
+            <div class="glass p-10 rounded-[2rem] text-center border-white/5">
+                <p class="text-[9px] font-black text-white/20 uppercase tracking-[0.3em] mb-3">Access Tier</p>
+                <h5 class="text-5xl font-black italic tracking-tighter text-blue-500">Free</h5>
+            </div>
+        </section>
+
+        <footer class="mt-40 pt-20 border-t border-white/5 pb-20 animate-flow" style="animation-delay: 0.6s;">
+            <div class="flex flex-col items-center text-center">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                        <span class="text-black font-black text-sm">D</span>
+                    </div>
+                    <span class="font-black text-2xl tracking-tighter uppercase">Dinzo <span class="text-white/20">Apis</span></span>
+                </div>
+                <p class="text-[10px] font-black tracking-[0.5em] text-white/20 uppercase mb-12">Built for Performance • Scaled for Future</p>
+                <div class="flex flex-wrap justify-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-white/40 mb-12">
+                    <a href="/docs" class="hover:text-white transition-colors">Documentation</a>
+                    <a href="/legal" class="hover:text-white transition-colors">Legal</a>
+                    <a href="https://wa.me/6288242449961" class="hover:text-white transition-colors">WhatsApp</a>
+                    <a href="https://t.me/depstore11" class="hover:text-white transition-colors">Telegram</a>
+                </div>
+                <p class="text-[9px] font-bold text-white/10 tracking-widest uppercase">© <span id="year"></span> Dinzo Apis Framework. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        async function fetchStats() {
+            try {
+                const res = await fetch('/src/openapi.json');
+                const data = await res.json();
+                let count = 0;
+                if (data.paths) {
+                    Object.keys(data.paths).forEach(path => {
+                        count += Object.keys(data.paths[path]).length;
+                    });
+                }
+                document.getElementById('total-endpoints').innerText = count.toString().padStart(2, '0');
+            } catch (e) {
+                document.getElementById('total-endpoints').innerText = '08';
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', fetchStats);
+    </script>
+</body>
+</html>
