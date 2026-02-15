@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal - Dinzo Apis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'monospace'],
+                        'sans': ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        
+        body { 
+            background: #000000;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.1) 0px, transparent 50%);
+            color: #ffffff; 
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .neo-card {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tab-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .legal-content h3 {
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legal-content h3::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 50%;
+        }
+
+        .legal-content p {
+            font-size: 0.875rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 1.25rem;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-section { animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <header class="sticky top-0 z-50 glass border-b border-white/5">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="/" class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                    <span class="text-black font-black text-xl leading-none">D</span>
+                </a>
+                <div>
+                    <h1 class="text-sm font-black tracking-tighter uppercase leading-none">Legal <span class="text-white/40">Center</span></h1>
+                    <p class="text-[8px] font-bold text-blue-500 uppercase tracking-[0.4em] mt-1">Compliance & Safety</p>
+                </div>
+            </div>
+            <a href="/" class="text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-all flex items-center gap-2">
+                <i class="material-icons text-sm">arrow_back</i>
+                Return to API
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-6 py-16">
+        <div class="flex border-b border-white/5 mb-12">
+            <button onclick="switchTab('terms')" id="btn-terms" class="tab-btn active px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/30">Terms of Service</button>
+            <button onclick="switchTab('privacy')" id="btn-privacy" class="tab-btn px-8 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/30">Privacy Policy</button>
+        </div>
+
+        <div id="terms" class="legal-content animate-section">
+            <div class="neo-card rounded-[2.5rem] p-10 md:p-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-1 h-10 bg-white rounded-full"></div>
+                    <div>
+                        <h2 class="text-2xl font-black tracking-tighter uppercase">Terms of <span class="text-white/30">Service</span></h2>
+                        <p class="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-1 m-0">Global Usage Agreement</p>
+                    </div>
+                </div>
+                
+                <h3>01. Acceptance of Terms</h3>
+                <p>By accessing and using Dinzo Apis, you acknowledge that you have read, understood, and agree to be bound by these terms. If you do not agree, please refrain from using our services.</p>
+
+                <h3>02. Usage License</h3>
+                <p>We grant you a limited, non-exclusive, non-transferable license to use our APIs for personal or commercial development purposes, provided you comply with all usage limits and documentation guidelines.</p>
+
+                <h3>03. Prohibited Conduct</h3>
+                <p>You agree not to: 
+                    <br><span class="text-white/60">• Attempt to reverse engineer or bypass API security measures.</span>
+                    <br><span class="text-white/60">• Use the service for illegal activities or spamming.</span>
+                    <br><span class="text-white/60">• Exceed the rate limits intentionally to disrupt the service.</span>
+                </p>
+
+                <h3>04. Disclaimer of Warranty</h3>
+                <p>Dinzo Apis is provided "as is". We make no warranties regarding the uptime, accuracy, or reliability of the data provided through our endpoints.</p>
+
+                <h3>05. Limitation of Liability</h3>
+                <p>Dinzo Network shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use our API services.</p>
+                
+                <div class="mt-12 pt-8 border-t border-white/5 flex justify-between items-center">
+                    <p class="text-[9px] font-black text-white/10 uppercase tracking-[0.3em]">Last Updated: Feb 2026</p>
+                    <div class="flex gap-2">
+                        <div class="w-1.5 h-1.5 rounded-full bg-white/10"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-white/10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="privacy" class="legal-content hidden animate-section">
+            <div class="neo-card rounded-[2.5rem] p-10 md:p-12">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-1 h-10 bg-blue-500 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+                    <div>
+                        <h2 class="text-2xl font-black tracking-tighter uppercase">Privacy <span class="text-white/30">Policy</span></h2>
+                        <p class="text-[9px] font-bold text-blue-500/40 uppercase tracking-widest mt-1 m-0">Data Protection Standards</p>
+                    </div>
+                </div>
+
+                <h3>01. Information We Collect</h3>
+                <p>We collect minimal information required to provide our services, including IP addresses for rate limiting, browser types for optimization, and basic usage logs to improve API performance.</p>
+
+                <h3>02. Data Usage</h3>
+                <p>The collected data is used solely for technical maintenance, preventing abuse, and analyzing service performance. We do not sell your data to third parties.</p>
+
+                <h3>03. Cookies & Tracking</h3>
+                <p>We use essential cookies to maintain your session and security. We do not use persistent tracking cookies for advertising purposes.</p>
+
+                <h3>04. Third-Party Links</h3>
+                <p>Our documentation may contain links to external sites (e.g., WhatsApp). We are not responsible for the privacy practices of those third-party platforms.</p>
+
+                <h3>05. Security</h3>
+                <p>We implement industry-standard security measures to protect your data. However, no method of transmission over the internet is 100% secure.</p>
+
+                <div class="mt-12 pt-8 border-t border-white/5 flex justify-between items-center">
+                    <p class="text-[9px] font-black text-white/10 uppercase tracking-[0.3em]">Last Updated: Feb 2026</p>
+                    <div class="flex gap-2">
+                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500/20"></div>
+                        <div class="w-1.5 h-1.5 rounded-full bg-blue-500/20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-20 text-center">
+            <p class="text-[9px] font-black text-white/10 uppercase tracking-[0.5em]">Dinzo Apis Framework © 2026</p>
+        </footer>
+    </main>
+
+    <script>
+        function switchTab(tab) {
+            const terms = document.getElementById('terms');
+            const privacy = document.getElementById('privacy');
+            const btnTerms = document.getElementById('btn-terms');
+            const btnPrivacy = document.getElementById('btn-privacy');
+
+            if (tab === 'terms') {
+                terms.classList.remove('hidden');
+                privacy.classList.add('hidden');
+                btnTerms.classList.add('active');
+                btnPrivacy.classList.remove('active');
+            } else {
+                privacy.classList.remove('hidden');
+                terms.classList.add('hidden');
+                btnPrivacy.classList.add('active');
+                btnTerms.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
