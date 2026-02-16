@@ -944,6 +944,47 @@
     }
   }
 },
+    "/search/music-v2": {
+  "get": {
+    "summary": "Music Search (JooMods)",
+    "description": "Mencari daftar lagu dari database musik. Output berupa JSON.",
+    "tags": ["Search"],
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci judul lagu",
+        "schema": { "type": "string", "example": "Duka" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Berhasil mendapatkan daftar lagu" }
+    }
+  }
+},
+    "/search/play-v2": {
+  "get": {
+    "summary": "Music Player (Biner)",
+    "description": "Cari dan langsung putar lagu dalam format audio MP3.",
+    "tags": ["Music"],
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Judul lagu untuk langsung diputar",
+        "schema": { "type": "string", "example": "Duka" }
+      }
+    ],
+    "responses": {
+      "200": { 
+        "description": "Audio MP3",
+        "content": { "audio/mpeg": {} }
+      }
+    }
+  }
+},
 "/news/kontan": {
   "get": {
     "summary": "Kontan News",
