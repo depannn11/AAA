@@ -16,6 +16,7 @@
     { "name": "Image" },
     { "name": "Stalk" },
     { "name": "Tools" },
+    { "name": "search" },
    { "name": "News" }
   ],
   "paths": {
@@ -866,6 +867,32 @@
     "tags": ["Stalk"],
     "parameters": [{ "name": "uid", "in": "query", "required": true, "schema": { "type": "string" } }],
     "responses": { "200": { "description": "OK" } }
+  }
+},
+    "/search/applemusic": {
+  "get": {
+    "summary": "Apple Music Search",
+    "description": "Mencari lagu, artis, atau album dari layanan Apple Music.",
+    "tags": ["Search"],
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian lagu",
+        "schema": { "type": "string", "example": "duka" }
+      },
+      {
+        "name": "region",
+        "in": "query",
+        "required": false,
+        "description": "Kode wilayah (default: id)",
+        "schema": { "type": "string", "default": "id" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Berhasil mendapatkan daftar lagu" }
+    }
   }
 },
 "/news/kontan": {
