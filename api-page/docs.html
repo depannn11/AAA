@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTE APIs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'xte-orange': '#FF4500',
+                        'xte-black': '#0A0A0A'
+                    },
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'monospace'],
+                        'sans': ['Plus Jakarta Sans', 'sans-serif'],
+                        'display': ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #FF4500; }
+        
+        body { 
+            background: #ffffff;
+            color: #0a0a0a; 
+            scroll-behavior: smooth;
+        }
+
+        .mobile-menu {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .card-xte {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+
+        .card-xte:hover {
+            border-color: #FF4500;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 69, 0, 0.05);
+        }
+
+        .method-tag {
+            font-size: 9px; font-weight: 900; padding: 4px 12px; border-radius: 6px;
+        }
+        .get-tag { background: #000; color: #fff; }
+        .post-tag { background: #FF4500; color: #fff; }
+
+        .category-tab {
+            padding: 8px 18px; border-radius: 12px; font-size: 10px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px; color: #000; 
+            border: 1px solid rgba(0,0,0,0.08); transition: 0.3s; white-space: nowrap;
+        }
+
+        .category-tab.active { background: #FF4500; color: #fff; border-color: #FF4500; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up { animation: slideUp 0.5s ease forwards; }
+    </style>
+</head>
+<body class="font-sans text-[14px]">
+
+    <nav class="fixed top-0 w-full h-16 bg-white/80 backdrop-blur-md border-b border-black/5 z-[100] px-6">
+        <div class="max-w-7xl mx-auto h-full flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                    <i class="material-icons text-xte-orange text-lg">bolt</i>
+                </div>
+                <span class="font-black text-lg tracking-tighter uppercase font-display">XTE <span class="text-xte-orange">APIS</span></span>
+            </div>
+            <button id="menuBtn" class="p-2 hover:bg-black/5 rounded-lg transition-all">
+                <i class="material-icons">menu</i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="sideMenu" class="mobile-menu fixed inset-0 bg-black z-[200] p-10 flex flex-col">
+        <div class="flex justify-end mb-10">
+            <button id="closeBtn" class="p-2 bg-white/10 rounded-full text-white">
+                <i class="material-icons">close</i>
+            </button>
+        </div>
+        <div class="flex flex-col gap-6">
+            <a href="/" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors">Home</a>
+            <a href="/docs" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors text-xte-orange">Docs</a>
+            <a href="/dev" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors">Developer</a>
+            <div class="h-[1px] bg-white/10 my-4"></div>
+            <a href="/terms" class="text-white/60 text-lg font-bold uppercase hover:text-white transition-colors">Terms</a>
+            <a href="/privacy" class="text-white/60 text-lg font-bold uppercase hover:text-white transition-colors">Privacy</a>
+        </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-6 pt-32">
+        <section class="mb-12 animate-up">
+            <h2 class="text-4xl md:text-5xl font-black font-display tracking-tighter mb-4">
+                EXPLORE <span class="text-xte-orange">ENDPOINTS.</span>
+            </h2>
+            <p class="max-w-xl text-black/40 font-medium mb-10 leading-relaxed uppercase text-[11px] tracking-widest">
+                Dokumentasi teknis untuk integrasi XTE Ecosystem.
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-4 mb-8">
+                <div class="relative flex-1">
+                    <i class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-black/20">search</i>
+                    <input type="text" id="apiSearch" placeholder="CARI API..." class="w-full bg-black/5 border border-transparent rounded-xl pl-12 pr-4 py-3 text-[11px] font-bold tracking-widest outline-none focus:bg-white focus:border-black/10 transition-all uppercase">
+                </div>
+                <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+                    <button onclick="filterCategory('all', this)" class="category-tab active">Semua</button>
+                </div>
+            </div>
+        </section>
+
+        <div id="apiContent" class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-20">
+            <div class="col-span-full py-20 text-center text-black/20 font-black uppercase text-[10px] tracking-[0.3em]">
+                Memuat Data API...
+            </div>
+        </div>
+    </main>
+
+    <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 -translate-y-20 opacity-0 transition-all duration-500 z-[100]">
+        <div class="bg-black text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+            <i class="material-icons text-xte-orange text-sm">check_circle</i>
+            <span class="text-[10px] font-black uppercase tracking-widest">Action Success</span>
+        </div>
+    </div>
+
+    <script>
+        const rawStore = {};
+        let activeTag = 'all';
+
+        // Navigation Script
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const sideMenu = document.getElementById('sideMenu');
+
+        menuBtn.onclick = () => sideMenu.classList.add('active');
+        closeBtn.onclick = () => sideMenu.classList.remove('active');
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.querySelector('span').textContent = msg;
+            t.classList.remove('-translate-y-20', 'opacity-0');
+            setTimeout(() => t.classList.add('-translate-y-20', 'opacity-0'), 2500);
+        }
+
+        async function trigger(cIdx, eIdx, method, path) {
+            const key = `${cIdx}-${eIdx}`;
+            const form = document.getElementById(`f-${key}`);
+            const resultBox = document.getElementById(`r-${key}`);
+            const resultContent = document.getElementById(`rc-${key}`);
+            const btn = form.querySelector('button');
+            
+            resultBox.classList.remove('hidden');
+            resultContent.innerHTML = `<div class="p-8 flex justify-center"><div class="w-5 h-5 border-2 border-xte-orange/20 border-t-xte-orange rounded-full animate-spin"></div></div>`;
+            btn.disabled = true;
+
+            const fd = new FormData(form);
+            let url = path;
+            const cfg = { method: method.toUpperCase() };
+
+            if (cfg.method === 'GET') {
+                const p = new URLSearchParams();
+                for (const [k, v] of fd.entries()) if(v) p.append(k, v);
+                if (p.toString()) url += (url.includes('?') ? '&' : '?') + p.toString();
+            } else { cfg.body = fd; }
+
+            try {
+                const start = Date.now();
+                const res = await fetch(url, cfg);
+                const time = Date.now() - start;
+                let out = '';
+
+                const type = res.headers.get('content-type') || '';
+                if (type.includes('image/')) {
+                    const blob = await res.blob();
+                    const bUrl = URL.createObjectURL(blob);
+                    rawStore[key] = bUrl;
+                    out = `<div class="p-4 bg-gray-50 flex justify-center"><img src="${bUrl}" class="max-h-60 rounded-lg shadow-sm"></div>`;
+                } else {
+                    const text = await res.text();
+                    try {
+                        const json = JSON.parse(text);
+                        rawStore[key] = json;
+                        out = `<pre class="p-4 text-[11px] font-mono overflow-auto max-h-64 bg-xte-black text-gray-400"><code>${JSON.stringify(json, null, 2)}</code></pre>`;
+                    } catch {
+                        rawStore[key] = text;
+                        out = `<pre class="p-4 text-[11px] font-mono overflow-auto max-h-64 bg-xte-black text-gray-400">${text}</pre>`;
+                    }
+                }
+
+                resultContent.innerHTML = `
+                    <div class="flex items-center justify-between px-4 py-2 border-b border-black/5 bg-gray-50">
+                        <span class="text-[9px] font-black text-black/40 uppercase">${res.status} OK • ${time}ms</span>
+                        <button onclick="navigator.clipboard.writeText(typeof rawStore['${key}'] === 'string' ? rawStore['${key}'] : JSON.stringify(rawStore['${key}'])); showToast('COPIED')" class="text-[9px] font-black uppercase text-xte-orange">Copy</button>
+                    </div>
+                    ${out}
+                `;
+            } catch (e) {
+                resultContent.innerHTML = `<div class="p-6 text-center text-red-500 text-[10px] font-black uppercase">Error: ${e.message}</div>`;
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function filterCategory(cat, btn) {
+            activeTag = cat;
+            document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.api-card-wrapper').forEach(s => {
+                s.style.display = (cat === 'all' || s.dataset.tag === cat) ? 'block' : 'none';
+            });
+        }
+
+        async function init() {
+            const container = document.getElementById('apiContent');
+            const catContainer = document.getElementById('categoryContainer');
+            try {
+                const res = await fetch('/openapi.json');
+                const data = await res.json();
+                const grouped = {};
+
+                Object.keys(data.paths).forEach(p => {
+                    Object.keys(data.paths[p]).forEach(m => {
+                        const info = data.paths[p][m];
+                        const tag = info.tags?.[0] || 'General';
+                        if(!grouped[tag]) grouped[tag] = [];
+                        grouped[tag].push({ path: p, method: m, ...info });
+                    });
+                });
+
+                let h = '';
+                Object.entries(grouped).forEach(([tag, items], cIdx) => {
+                    const catBtn = document.createElement('button');
+                    catBtn.className = 'category-tab';
+                    catBtn.textContent = tag;
+                    catBtn.onclick = (e) => filterCategory(tag, e.target);
+                    catContainer.appendChild(catBtn);
+
+                    items.forEach((it, eIdx) => {
+                        const key = `${cIdx}-${eIdx}`;
+                        const m = it.method.toUpperCase();
+                        const params = it.parameters || [];
+                        
+                        h += `
+                            <div class="api-card-wrapper animate-up" data-tag="${tag}" data-s="${it.path} ${it.summary}">
+                                <div class="card-xte rounded-2xl overflow-hidden h-full flex flex-col">
+                                    <div class="p-6 flex-1">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="method-tag ${m === 'GET' ? 'get-tag' : 'post-tag'}">${m}</span>
+                                            <span class="text-[9px] font-black text-black/20 uppercase tracking-widest">${tag}</span>
+                                        </div>
+                                        <h3 class="text-sm font-mono font-bold text-black mb-1">${it.path}</h3>
+                                        <p class="text-[11px] text-black/40 font-bold uppercase mb-6">${it.summary || 'No description.'}</p>
+                                        
+                                        <form id="f-${key}" class="space-y-4">
+                                            ${params.map(p => `
+                                                <div class="space-y-1">
+                                                    <label class="text-[9px] font-black text-black/40 uppercase">${p.name}</label>
+                                                    <input type="text" name="${p.name}" class="w-full bg-black/5 border border-transparent rounded-lg px-4 py-2 text-[11px] outline-none focus:bg-white focus:border-black/10 transition-all" placeholder="${p.required ? '(Required)' : '(Optional)'}" ${p.required ? 'required' : ''}>
+                                                </div>
+                                            `).join('')}
+                                            <button type="button" onclick="trigger(${cIdx}, ${eIdx}, '${m}', '${it.path}')" class="w-full bg-black text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-xte-orange transition-all">
+                                                Test Endpoint
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div id="r-${key}" class="hidden border-t border-black/5 bg-white">
+                                        <div id="rc-${key}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                });
+                container.innerHTML = h;
+            } catch (e) {
+                container.innerHTML = `<div class="col-span-full py-20 text-center text-xte-orange font-black uppercase text-xs">Failed to load OpenAPI</div>`;
+            }
+        }
+
+        document.getElementById('apiSearch').oninput = function() {
+            const v = this.value.toLowerCase();
+            document.querySelectorAll('.api-card-wrapper').forEach(c => {
+                const match = c.dataset.s.toLowerCase().includes(v);
+                const tagMatch = activeTag === 'all' || c.dataset.tag === activeTag;
+                c.style.display = (match && tagMatch) ? 'block' : 'none';
+            });
+        };
+
+        window.onload = init;
+    </script>
+</body>
+</html>

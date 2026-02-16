@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XTE APIs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'xte-orange': '#FF4500',
+                        'xte-black': '#0A0A0A'
+                    },
+                    fontFamily: {
+                        'sans': ['Plus Jakarta Sans', 'sans-serif'],
+                        'display': ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #FF4500; }
+        
+        body { 
+            background: #ffffff;
+            color: #0a0a0a; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .profile-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 2.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .profile-card:hover {
+            border-color: #FF4500;
+            box-shadow: 0 30px 60px rgba(255, 69, 0, 0.05);
+        }
+
+        .profile-image {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 2rem;
+            filter: grayscale(100%);
+            transition: 0.5s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .profile-card:hover .profile-image {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+            border-color: #FF4500;
+        }
+
+        .btn-action {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.2);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up { animation: slideUp 0.6s ease forwards; }
+    </style>
+</head>
+<body class="font-sans text-[14px]">
+
+    <nav class="fixed top-0 w-full h-16 bg-white/80 backdrop-blur-md border-b border-black/5 z-[100] px-6">
+        <div class="max-w-7xl mx-auto h-full flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                    <i class="material-icons text-xte-orange text-lg">bolt</i>
+                </div>
+                <span class="font-black text-lg tracking-tighter uppercase font-display">XTE <span class="text-xte-orange">APIS</span></span>
+            </div>
+            <button id="menuBtn" class="p-2 hover:bg-black/5 rounded-lg transition-all">
+                <i class="material-icons">menu</i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="sideMenu" class="mobile-menu fixed inset-0 bg-black z-[200] p-10 flex flex-col">
+        <div class="flex justify-end mb-10">
+            <button id="closeBtn" class="p-2 bg-white/10 rounded-full text-white">
+                <i class="material-icons">close</i>
+            </button>
+        </div>
+        <div class="flex flex-col gap-6">
+            <a href="/" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors">Home</a>
+            <a href="/docs" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors">Docs</a>
+            <a href="/dev" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors text-xte-orange">Developer</a>
+            <div class="h-[1px] bg-white/10 my-4"></div>
+            <a href="/terms" class="text-white/60 text-lg font-bold uppercase hover:text-white transition-colors">Terms</a>
+            <a href="/privacy" class="text-white/60 text-lg font-bold uppercase hover:text-white transition-colors">Privacy</a>
+        </div>
+    </div>
+
+    <main class="flex-1 flex items-center justify-center p-6 pt-24">
+        <div class="max-w-md w-full animate-up">
+            <div class="profile-card p-10 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-6 opacity-[0.03] pointer-events-none">
+                    <i class="material-icons text-9xl">code</i>
+                </div>
+
+                <div class="relative inline-block mb-8">
+                    <img src="https://files.catbox.moe/piiki0.png" alt="Developer" class="profile-image shadow-2xl">
+                    <div class="absolute -bottom-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-[3px] border-white shadow-sm animate-pulse"></div>
+                </div>
+
+                <div class="mb-8">
+                    <div class="flex justify-center mb-4">
+                        <span class="px-4 py-1.5 bg-xte-orange text-white text-[9px] font-black uppercase tracking-widest rounded-lg">Core Maintainer</span>
+                    </div>
+                    <h1 class="text-3xl font-black font-display tracking-tighter uppercase mb-1">XTE ID</h1>
+                    <p class="text-[10px] font-black text-black/30 tracking-[0.3em] uppercase italic">Backend Architect</p>
+                </div>
+
+                <p class="text-[11px] text-black/50 font-bold uppercase leading-relaxed tracking-wide mb-10 px-4">
+                    Architecting high-performance API infrastructure and scalable systems for the XTE ecosystem.
+                </p>
+
+                <div class="grid grid-cols-2 gap-3 mb-10">
+                    <div class="p-5 bg-black/5 rounded-2xl border border-black/5">
+                        <p class="text-xl font-black text-black italic">50+</p>
+                        <p class="text-[8px] font-black text-black/30 uppercase tracking-widest">Apis Built</p>
+                    </div>
+                    <div class="p-5 bg-black/5 rounded-2xl border border-black/5">
+                        <p class="text-xl font-black text-black italic">24/7</p>
+                        <p class="text-[8px] font-black text-black/30 uppercase tracking-widest">Uptime</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <a href="https://wa.me/6288242449961" class="flex-1 btn-action bg-black text-white py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-xte-orange">
+                        Direct Message
+                    </a>
+                    <a href="https://t.me/depstore11" class="w-16 btn-action bg-black/5 text-black py-4 rounded-2xl flex items-center justify-center hover:bg-black/10">
+                        <i class="material-icons text-lg">send</i>
+                    </a>
+                </div>
+            </div>
+            
+            <p class="text-center mt-10 text-[9px] font-black text-black/20 uppercase tracking-[0.5em]">
+                XTE AUTHORIZED DEVELOPER
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Navigation Logic
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const sideMenu = document.getElementById('sideMenu');
+
+        menuBtn.onclick = () => sideMenu.classList.add('active');
+        closeBtn.onclick = () => sideMenu.classList.remove('active');
+
+        // Close menu on link click
+        document.querySelectorAll('#sideMenu a').forEach(link => {
+            link.onclick = () => sideMenu.classList.remove('active');
+        });
+
+        // Click outside to close
+        window.onclick = (e) => {
+            if (e.target == sideMenu) sideMenu.classList.remove('active');
+        };
+    </script>
+</body>
+</html>
