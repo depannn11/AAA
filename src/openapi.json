@@ -944,25 +944,6 @@
     }
   }
 },
-    "/search/music-v2": {
-  "get": {
-    "summary": "Music Search (JooMods)",
-    "description": "Mencari daftar lagu dari database musik. Output berupa JSON.",
-    "tags": ["Search"],
-    "parameters": [
-      {
-        "name": "q",
-        "in": "query",
-        "required": true,
-        "description": "Kata kunci judul lagu",
-        "schema": { "type": "string", "example": "Duka" }
-      }
-    ],
-    "responses": {
-      "200": { "description": "Berhasil mendapatkan daftar lagu" }
-    }
-  }
-},
     "/search/play-v2": {
   "get": {
     "summary": "Music Player (Biner)",
