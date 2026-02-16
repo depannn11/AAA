@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XTE APIs</title>
+    <title>XTE APIs | Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -31,14 +31,14 @@
         body { background: #ffffff; color: #0a0a0a; scroll-behavior: smooth; }
         .mobile-menu { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
         .mobile-menu.active { transform: translateX(0); }
-        .card-xte { background: #fff; border: 1px solid rgba(0,0,0,0.08); transition: all 0.4s ease; border-radius: 2rem; overflow: hidden; }
+        .card-xte { background: #fff; border: 1px solid rgba(0,0,0,0.08); transition: all 0.4s ease; }
         .card-xte:hover { border-color: #FF4500; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(255, 69, 0, 0.05); }
         .method-tag { font-size: 9px; font-weight: 900; padding: 4px 12px; border-radius: 6px; }
         .get-tag { background: #000; color: #fff; }
         .post-tag { background: #FF4500; color: #fff; }
+        .category-tab { padding: 8px 18px; border-radius: 12px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #000; border: 1px solid rgba(0,0,0,0.08); transition: 0.3s; white-space: nowrap; }
+        .category-tab.active { background: #FF4500; color: #fff; border-color: #FF4500; }
         .curl-box { background: #0A0A0A; border-radius: 12px; padding: 12px; position: relative; margin-bottom: 16px; border: 1px solid rgba(255, 69, 0, 0.1); }
-        .history-item { border-left: 2px solid #FF4500; background: rgba(0,0,0,0.02); padding: 8px 12px; margin-top: 8px; border-radius: 0 8px 8px 0; transition: 0.2s; cursor: pointer; }
-        .history-item:hover { background: rgba(255, 69, 0, 0.05); }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-up { animation: slideUp 0.5s ease forwards; }
     </style>
@@ -65,45 +65,52 @@
         </div>
         <div class="flex flex-col gap-6">
             <a href="/" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors">Home</a>
-            <a href="/docs" class="text-white text-2xl font-black uppercase tracking-widest text-xte-orange">Docs</a>
+            <a href="/docs" class="text-white text-2xl font-black uppercase tracking-widest text-xte-orange transition-colors">Docs</a>
+            <a href="/dev" class="text-white text-2xl font-black uppercase tracking-widest hover:text-xte-orange transition-colors">Developer</a>
             <div class="h-[1px] bg-white/10 my-4"></div>
-            <a href="/dev" class="text-white/60 text-lg font-bold uppercase hover:text-white transition-colors">Developer</a>
+            <a href="/terms" class="text-white/60 text-lg font-bold uppercase hover:text-white transition-colors">Terms</a>
+            <a href="/privacy" class="text-white/60 text-lg font-bold uppercase hover:text-white transition-colors">Privacy</a>
         </div>
     </div>
 
     <main class="max-w-7xl mx-auto px-6 pt-32">
-        <section class="mb-12 animate-up text-center md:text-left">
-            <h2 class="text-5xl font-black font-display tracking-tighter mb-4">ENGINE <span class="text-xte-orange">TERMINAL.</span></h2>
-            <p class="text-black/40 font-bold uppercase text-[10px] tracking-[0.4em]">Integrated API Debugger & Documentation</p>
+        <section class="mb-12 animate-up">
+            <h2 class="text-4xl md:text-5xl font-black font-display tracking-tighter mb-4">EXPLORE <span class="text-xte-orange">ENDPOINTS.</span></h2>
+            <p class="max-w-xl text-black/40 font-medium mb-10 leading-relaxed uppercase text-[11px] tracking-widest">Dokumentasi teknis untuk integrasi XTE Ecosystem.</p>
+
+            <div class="flex flex-col md:flex-row gap-4 mb-8">
+                <div class="relative flex-1">
+                    <i class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-black/20">search</i>
+                    <input type="text" id="apiSearch" placeholder="CARI API..." class="w-full bg-black/5 border border-transparent rounded-xl pl-12 pr-4 py-3 text-[11px] font-bold tracking-widest outline-none focus:bg-white focus:border-black/10 transition-all uppercase">
+                </div>
+                <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+                    <button onclick="filterCategory('all', this)" class="category-tab active">Semua</button>
+                </div>
+            </div>
         </section>
 
-        <div id="apiContent" class="grid grid-cols-1 lg:grid-cols-2 gap-8 pb-20">
-            </div>
+        <div id="apiContent" class="grid grid-cols-1 lg:grid-cols-2 gap-6 pb-20">
+            <div class="col-span-full py-20 text-center text-black/20 font-black uppercase text-[10px] tracking-[0.3em]">Memuat Data API...</div>
+        </div>
     </main>
 
     <div id="toast" class="fixed top-20 left-1/2 -translate-x-1/2 -translate-y-20 opacity-0 transition-all duration-500 z-[100]">
         <div class="bg-black text-white px-6 py-3 rounded-xl shadow-2xl flex items-center gap-3">
-            <i class="material-icons text-xte-orange text-sm">bolt</i>
-            <span class="text-[10px] font-black uppercase tracking-widest italic">System Updated</span>
+            <i class="material-icons text-xte-orange text-sm">check_circle</i>
+            <span class="text-[10px] font-black uppercase tracking-widest">Action Success</span>
         </div>
     </div>
 
     <script>
-        const historyStore = {};
+        const rawStore = {};
+        let activeTag = 'all';
 
-        function updateCurl(key, method, path) {
-            const form = document.getElementById(`f-${key}`);
-            const curlDisplay = document.getElementById(`curl-text-${key}`);
-            const fd = new FormData(form);
-            let fullUrl = window.location.origin + path;
-            
-            if (method.toUpperCase() === 'GET') {
-                const params = new URLSearchParams();
-                for (const [k, v] of fd.entries()) if (v) params.append(k, v);
-                if (params.toString()) fullUrl += '?' + params.toString();
-            }
-            curlDisplay.textContent = `curl -X ${method.toUpperCase()} "${fullUrl}"`;
-        }
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const sideMenu = document.getElementById('sideMenu');
+
+        menuBtn.onclick = () => sideMenu.classList.add('active');
+        closeBtn.onclick = () => sideMenu.classList.remove('active');
 
         function showToast(msg) {
             const t = document.getElementById('toast');
@@ -112,16 +119,34 @@
             setTimeout(() => t.classList.add('-translate-y-20', 'opacity-0'), 2500);
         }
 
+        // Fungsi memperbarui tampilan cURL secara real-time
+        function updateCurl(key, method, path) {
+            const form = document.getElementById(`f-${key}`);
+            const curlDisplay = document.getElementById(`curl-text-${key}`);
+            const fd = new FormData(form);
+            let fullUrl = window.location.origin + path;
+            
+            if (method.toUpperCase() === 'GET') {
+                const params = new URLSearchParams();
+                for (const [k, v] of fd.entries()) {
+                    if (v) params.append(k, v);
+                }
+                const queryString = params.toString();
+                if (queryString) fullUrl += '?' + queryString;
+            }
+
+            curlDisplay.textContent = `curl -X ${method.toUpperCase()} "${fullUrl}"`;
+        }
+
         async function trigger(cIdx, eIdx, method, path) {
             const key = `${cIdx}-${eIdx}`;
             const form = document.getElementById(`f-${key}`);
             const resultBox = document.getElementById(`r-${key}`);
             const resultContent = document.getElementById(`rc-${key}`);
-            const historyList = document.getElementById(`h-${key}`);
             const btn = form.querySelector('button');
             
             resultBox.classList.remove('hidden');
-            resultContent.innerHTML = `<div class="p-8 flex justify-center"><div class="w-6 h-6 border-2 border-xte-orange border-t-transparent rounded-full animate-spin"></div></div>`;
+            resultContent.innerHTML = `<div class="p-8 flex justify-center"><div class="w-5 h-5 border-2 border-xte-orange/20 border-t-xte-orange rounded-full animate-spin"></div></div>`;
             btn.disabled = true;
 
             const fd = new FormData(form);
@@ -132,104 +157,120 @@
                 const p = new URLSearchParams();
                 for (const [k, v] of fd.entries()) if(v) p.append(k, v);
                 if (p.toString()) url += (url.includes('?') ? '&' : '?') + p.toString();
-            } else { cfg.body = fd; }
+            } else { 
+                cfg.body = fd; 
+            }
 
             try {
                 const start = Date.now();
                 const res = await fetch(url, cfg);
                 const time = Date.now() - start;
-                const text = await res.text();
-                let displayData = text;
+                let out = '';
 
-                try { displayData = JSON.stringify(JSON.parse(text), null, 2); } catch(e) {}
+                const type = res.headers.get('content-type') || '';
+                if (type.includes('image/')) {
+                    const blob = await res.blob();
+                    const bUrl = URL.createObjectURL(blob);
+                    rawStore[key] = bUrl;
+                    out = `<div class="p-4 bg-gray-50 flex justify-center"><img src="${bUrl}" class="max-h-60 rounded-lg shadow-sm"></div>`;
+                } else {
+                    const text = await res.text();
+                    try {
+                        const json = JSON.parse(text);
+                        rawStore[key] = json;
+                        out = `<pre class="p-4 text-[10px] font-mono overflow-auto max-h-64 bg-xte-black text-green-400 leading-tight"><code>${JSON.stringify(json, null, 2)}</code></pre>`;
+                    } catch {
+                        rawStore[key] = text;
+                        out = `<pre class="p-4 text-[10px] font-mono overflow-auto max-h-64 bg-xte-black text-gray-400">${text}</pre>`;
+                    }
+                }
 
-                // Save to history
-                if(!historyStore[key]) historyStore[key] = [];
-                const histItem = { time: new Date().toLocaleTimeString(), status: res.status, data: displayData };
-                historyStore[key].unshift(histItem);
-                if(historyStore[key].length > 3) historyStore[key].pop();
-
-                // Update UI
-                renderHistory(key);
                 resultContent.innerHTML = `
-                    <div class="flex items-center justify-between px-4 py-2 border-b border-black/5 bg-gray-50">
-                        <span class="text-[9px] font-black text-green-600 uppercase">LATEST: ${res.status} OK • ${time}ms</span>
-                        <button onclick="navigator.clipboard.writeText(\`${displayData.replace(/`/g, '\\`')}\`); showToast('RESULT COPIED')" class="text-[9px] font-black uppercase text-xte-orange">Copy JSON</button>
+                    <div class="flex items-center justify-between px-4 py-2 border-b border-black/5 bg-gray-100">
+                        <span class="text-[9px] font-black ${res.ok ? 'text-green-600' : 'text-red-600'} uppercase">${res.status} ${res.statusText} • ${time}ms</span>
+                        <button onclick="navigator.clipboard.writeText(document.getElementById('curl-text-${key}').textContent); showToast('CURL COPIED')" class="text-[9px] font-black uppercase text-xte-orange">Copy CURL</button>
                     </div>
-                    <pre class="p-4 text-[10px] font-mono overflow-auto max-h-64 bg-xte-black text-green-400"><code>${displayData}</code></pre>
+                    ${out}
                 `;
             } catch (e) {
-                resultContent.innerHTML = `<div class="p-6 text-center text-red-500 text-[10px] font-black uppercase">Request Failed: ${e.message}</div>`;
+                resultContent.innerHTML = `<div class="p-6 text-center text-red-500 text-[10px] font-black uppercase">Error: ${e.message}</div>`;
             } finally {
                 btn.disabled = false;
             }
         }
 
-        function renderHistory(key) {
-            const container = document.getElementById(`h-${key}`);
-            if(!historyStore[key]) return;
-            container.innerHTML = `<p class="text-[8px] font-black text-black/20 uppercase mb-2 tracking-widest">Recent Activity</p>` + 
-                historyStore[key].map((item, idx) => `
-                <div class="history-item flex justify-between items-center" onclick="loadHistory('${key}', ${idx})">
-                    <span class="text-[9px] font-bold text-black/60">${item.time}</span>
-                    <span class="text-[9px] font-black text-xte-orange">${item.status}</span>
-                </div>
-            `).join('');
+        function filterCategory(cat, btn) {
+            activeTag = cat;
+            document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.api-card-wrapper').forEach(s => {
+                s.style.display = (cat === 'all' || s.dataset.tag === cat) ? 'block' : 'none';
+            });
         }
 
-        function loadHistory(key, idx) {
-            const item = historyStore[key][idx];
-            const resultContent = document.getElementById(`rc-${key}`);
-            resultContent.innerHTML = `
-                <div class="flex items-center justify-between px-4 py-2 border-b border-black/5 bg-gray-50">
-                    <span class="text-[9px] font-black text-black/40 uppercase tracking-widest">RECOVERY: ${item.time}</span>
-                    <button onclick="navigator.clipboard.writeText(\`${item.data.replace(/`/g, '\\`')}\`); showToast('HISTORY COPIED')" class="text-[9px] font-black uppercase text-xte-orange">Copy</button>
-                </div>
-                <pre class="p-4 text-[10px] font-mono overflow-auto max-h-64 bg-xte-black text-blue-400"><code>${item.data}</code></pre>
-            `;
-            showToast('HISTORY LOADED');
-        }
-
-        // --- Same Init Logic as before but with History Container ---
         async function init() {
             const container = document.getElementById('apiContent');
+            const catContainer = document.getElementById('categoryContainer');
             try {
                 const res = await fetch('/openapi.json');
                 const data = await res.json();
+                const grouped = {};
+
+                Object.keys(data.paths).forEach(p => {
+                    Object.keys(data.paths[p]).forEach(m => {
+                        const info = data.paths[p][m];
+                        const tag = info.tags?.[0] || 'General';
+                        if(!grouped[tag]) grouped[tag] = [];
+                        grouped[tag].push({ path: p, method: m, ...info });
+                    });
+                });
+
                 let h = '';
-                
-                Object.entries(data.paths).forEach(([path, methods], cIdx) => {
-                    Object.entries(methods).forEach(([m, it], eIdx) => {
+                Object.entries(grouped).forEach(([tag, items], cIdx) => {
+                    const catBtn = document.createElement('button');
+                    catBtn.className = 'category-tab';
+                    catBtn.textContent = tag;
+                    catBtn.onclick = (e) => filterCategory(tag, e.target);
+                    catContainer.appendChild(catBtn);
+
+                    items.forEach((it, eIdx) => {
                         const key = `${cIdx}-${eIdx}`;
+                        const m = it.method.toUpperCase();
                         const params = it.parameters || [];
+                        
                         h += `
-                            <div class="api-card-wrapper animate-up">
-                                <div class="card-xte flex flex-col h-full">
-                                    <div class="p-8 flex-1">
-                                        <div class="flex justify-between items-center mb-6">
-                                            <span class="method-tag ${m.toUpperCase() === 'GET' ? 'get-tag' : 'post-tag'}">${m.toUpperCase()}</span>
-                                            <span class="text-[10px] font-black text-black/20 tracking-tighter uppercase font-display italic">Endpoint Architecture</span>
+                            <div class="api-card-wrapper animate-up" data-tag="${tag}" data-s="${it.path} ${it.summary}">
+                                <div class="card-xte rounded-2xl overflow-hidden h-full flex flex-col">
+                                    <div class="p-6 flex-1">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span class="method-tag ${m === 'GET' ? 'get-tag' : 'post-tag'}">${m}</span>
+                                            <span class="text-[9px] font-black text-black/20 uppercase tracking-widest">${tag}</span>
                                         </div>
-                                        <h3 class="text-[13px] font-mono font-bold text-black mb-1">${path}</h3>
-                                        <p class="text-[10px] text-black/40 font-bold uppercase mb-6">${it.summary || 'Production Ready'}</p>
+                                        <h3 class="text-sm font-mono font-bold text-black mb-1">${it.path}</h3>
+                                        <p class="text-[11px] text-black/40 font-bold uppercase mb-4">${it.summary || 'No description.'}</p>
                                         
-                                        <div class="curl-box mb-6">
-                                            <code id="curl-text-${key}" class="text-[9px] text-gray-400 font-mono break-all leading-tight italic">curl -X ${m.toUpperCase()} "${window.location.origin}${path}"</code>
+                                        <div class="curl-box">
+                                            <div class="flex justify-between mb-2">
+                                                <span class="text-[8px] text-xte-orange font-black uppercase">Request Sample</span>
+                                                <button onclick="navigator.clipboard.writeText(document.getElementById('curl-text-${key}').textContent); showToast('COPIED')" class="text-white/40 hover:text-white"><i class="material-icons text-xs">content_copy</i></button>
+                                            </div>
+                                            <code id="curl-text-${key}" class="text-[9px] text-gray-300 font-mono break-all leading-tight">curl -X ${m} "${window.location.origin}${it.path}"</code>
                                         </div>
 
-                                        <form id="f-${key}" class="space-y-4 mb-6">
+                                        <form id="f-${key}" class="space-y-4">
                                             ${params.map(p => `
                                                 <div class="space-y-1">
-                                                    <label class="text-[9px] font-black text-black/30 uppercase tracking-widest">${p.name}</label>
-                                                    <input type="text" name="${p.name}" oninput="updateCurl('${key}', '${m}', '${path}')" class="w-full bg-black/5 rounded-xl px-4 py-3 text-[11px] outline-none focus:bg-white border border-transparent focus:border-black/5 transition-all">
+                                                    <label class="text-[9px] font-black text-black/40 uppercase">${p.name}</label>
+                                                    <input type="text" name="${p.name}" 
+                                                        oninput="updateCurl('${key}', '${m}', '${it.path}')"
+                                                        class="w-full bg-black/5 border border-transparent rounded-lg px-4 py-2 text-[11px] outline-none focus:bg-white focus:border-black/10 transition-all" 
+                                                        placeholder="${p.required ? '(Required)' : '(Optional)'}" ${p.required ? 'required' : ''}>
                                                 </div>
                                             `).join('')}
-                                            <button type="button" onclick="trigger(${cIdx}, ${eIdx}, '${m}', '${path}')" class="w-full bg-black text-white py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-xte-orange hover:shadow-lg hover:shadow-xte-orange/20 transition-all">
-                                                Execute Engine
+                                            <button type="button" onclick="trigger(${cIdx}, ${eIdx}, '${m}', '${it.path}')" class="w-full bg-black text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-xte-orange transition-all">
+                                                Execute Request
                                             </button>
                                         </form>
-
-                                        <div id="h-${key}" class="space-y-1"></div>
                                     </div>
                                     <div id="r-${key}" class="hidden border-t border-black/5 bg-white">
                                         <div id="rc-${key}"></div>
@@ -240,14 +281,19 @@
                     });
                 });
                 container.innerHTML = h;
-            } catch (e) { container.innerHTML = `<p class="col-span-full text-center py-20 font-black uppercase text-xte-orange">Offline / System Error</p>`; }
+            } catch (e) {
+                container.innerHTML = `<div class="col-span-full py-20 text-center text-xte-orange font-black uppercase text-xs">Failed to load OpenAPI</div>`;
+            }
         }
 
-        const menuBtn = document.getElementById('menuBtn');
-        const closeBtn = document.getElementById('closeBtn');
-        const sideMenu = document.getElementById('sideMenu');
-        menuBtn.onclick = () => sideMenu.classList.add('active');
-        closeBtn.onclick = () => sideMenu.classList.remove('active');
+        document.getElementById('apiSearch').oninput = function() {
+            const v = this.value.toLowerCase();
+            document.querySelectorAll('.api-card-wrapper').forEach(c => {
+                const match = c.dataset.s.toLowerCase().includes(v);
+                const tagMatch = activeTag === 'all' || c.dataset.tag === activeTag;
+                c.style.display = (match && tagMatch) ? 'block' : 'none';
+            });
+        };
 
         window.onload = init;
     </script>
