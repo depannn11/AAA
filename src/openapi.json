@@ -62,23 +62,6 @@
     "responses": { "200": { "description": "OK" } }
   }
 },
-"/ai/text2video": {
-  "get": {
-    "summary": "AI Text to Video",
-    "description": "Mengubah teks deskripsi menjadi video singkat (Proses ~30-60 detik).",
-    "tags": ["AI"],
-    "parameters": [
-      {
-        "name": "prompt",
-        "in": "query",
-        "required": true,
-        "description": "Deskripsi video (English disarankan)",
-        "schema": { "type": "string", "example": "A cat running on the moon" }
-      }
-    ],
-    "responses": { "200": { "description": "OK" } }
-  }
-},
     "/ai/heckai": {
   "get": {
     "summary": "Heckai AI Premium (Grok-3 & Llama-4)",
