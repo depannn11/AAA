@@ -376,6 +376,28 @@
     }
   }
 },
+    "/download/applemusic": {
+  "get": {
+    "summary": "Apple Music Downloader",
+    "description": "Mengunduh lagu dari Apple Music menjadi MP3 beserta cover album (Bypass Turnstile).",
+    "tags": ["Downloader"],
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Link lagu Apple Music",
+        "schema": { 
+          "type": "string", 
+          "example": "https://music.apple.com/id/album/duka/1160727993?i=1160728286" 
+        }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Berhasil mendapatkan link unduh" }
+    }
+  }
+},
 "/download/pinterest": {
   "get": {
     "summary": "Pinterest ",
