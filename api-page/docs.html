@@ -41,6 +41,7 @@
         .curl-box { background: #0A0A0A; border-radius: 12px; padding: 12px; position: relative; margin-bottom: 16px; border: 1px solid rgba(255, 69, 0, 0.1); }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-up { animation: slideUp 0.5s ease forwards; }
+        .res-btn { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; }
     </style>
 </head>
 <body class="font-sans text-[14px]">
@@ -103,6 +104,7 @@
 
     <script>
         const rawStore = {};
+        const urlStore = {};
         let activeTag = 'all';
 
         const menuBtn = document.getElementById('menuBtn');
@@ -119,7 +121,18 @@
             setTimeout(() => t.classList.add('-translate-y-20', 'opacity-0'), 2500);
         }
 
-        // Fungsi memperbarui tampilan cURL secara real-time
+        function copyResponse(key) {
+            const data = rawStore[key];
+            const text = typeof data === 'object' ? JSON.stringify(data, null, 2) : data;
+            navigator.clipboard.writeText(text);
+            showToast('RESPONSE COPIED');
+        }
+
+        function visitRaw(key) {
+            const url = urlStore[key];
+            if(url) window.open(url, '_blank');
+        }
+
         function updateCurl(key, method, path) {
             const form = document.getElementById(`f-${key}`);
             const curlDisplay = document.getElementById(`curl-text-${key}`);
@@ -161,6 +174,8 @@
                 cfg.body = fd; 
             }
 
+            urlStore[key] = window.location.origin + url;
+
             try {
                 const start = Date.now();
                 const res = await fetch(url, cfg);
@@ -187,8 +202,13 @@
 
                 resultContent.innerHTML = `
                     <div class="flex items-center justify-between px-4 py-2 border-b border-black/5 bg-gray-100">
-                        <span class="text-[9px] font-black ${res.ok ? 'text-green-600' : 'text-red-600'} uppercase">${res.status} ${res.statusText} • ${time}ms</span>
-                        <button onclick="navigator.clipboard.writeText(document.getElementById('curl-text-${key}').textContent); showToast('CURL COPIED')" class="text-[9px] font-black uppercase text-xte-orange">Copy CURL</button>
+                        <div class="flex items-center gap-3">
+                            <span class="text-[9px] font-black ${res.ok ? 'text-green-600' : 'text-red-600'} uppercase">${res.status} ${res.statusText} • ${time}ms</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="visitRaw('${key}')" class="res-btn text-black/40 hover:text-black">Visit Raw</button>
+                            <button onclick="copyResponse('${key}')" class="res-btn text-xte-orange">Copy JSON</button>
+                        </div>
                     </div>
                     ${out}
                 `;
