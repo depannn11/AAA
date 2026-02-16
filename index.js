@@ -89,7 +89,7 @@ if (fs.existsSync(apiFolder)) {
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "api-page", "index.html")));
 app.get("/docs", (req, res) => res.sendFile(path.join(__dirname, "api-page", "docs.html")));
 app.get("/legal", (req, res) => res.sendFile(path.join(__dirname, "api-page", "legal.html")));
-app.get("/ntfoundl", (req, res) => res.sendFile(path.join(__dirname, "api-page", "nt.html")));
+app.get("/ntfound", (req, res) => res.sendFile(path.join(__dirname, "api-page", "nt.html")));
 app.get("/openapi.json", (req, res) => res.sendFile(openApiPath));
 
 // GLOBAL ERROR HANDLER (Menangkap error saat API diakses user)
