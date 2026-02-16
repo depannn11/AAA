@@ -47,27 +47,20 @@
     },
     "/ai/copilot-voice": {
   "get": {
-    "summary": "Copilot Voice AI",
-    "description": "Tanya jawab dengan AI Copilot dan dapatkan jawaban dalam bentuk audio (MP3).",
+    "summary": "Copilot Voice AI (JSON)",
+    "description": "Mendapatkan jawaban AI dalam format teks dan base64 audio.",
     "tags": ["AI"],
     "parameters": [
       {
         "name": "text",
         "in": "query",
         "required": true,
-        "description": "Pertanyaan untuk AI",
-        "schema": { "type": "string", "example": "Siapa penemu listrik?" }
-      },
-      {
-        "name": "model",
-        "in": "query",
-        "required": false,
-        "description": "default, think-deeper, atau gpt-5",
-        "schema": { "type": "string", "default": "default" }
+        "description": "Input pertanyaan",
+        "schema": { "type": "string", "example": "Halo, apa kabar?" }
       }
     ],
     "responses": {
-      "200": { "description": "Audio MP3" }
+      "200": { "description": "OK" }
     }
   }
 },
