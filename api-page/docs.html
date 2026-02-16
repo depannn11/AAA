@@ -31,8 +31,8 @@
         body { background: #ffffff; color: #0a0a0a; scroll-behavior: smooth; }
         .mobile-menu { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
         .mobile-menu.active { transform: translateX(0); }
-        .card-xte { background: #fff; border: 1px solid rgba(0,0,0,0.08); transition: all 0.4s ease; }
-        .card-xte:hover { border-color: #FF4500; transform: translateY(-5px); box-shadow: 0 20px 40px rgba(255, 69, 0, 0.05); }
+        .card-xte { background: #fff; border: 1px solid rgba(0,0,0,0.08); transition: all 0.3s ease; }
+        .card-xte:hover { border-color: #FF4500; }
         .method-tag { font-size: 9px; font-weight: 900; padding: 4px 12px; border-radius: 6px; }
         .get-tag { background: #000; color: #fff; }
         .post-tag { background: #FF4500; color: #fff; }
@@ -42,6 +42,10 @@
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .animate-up { animation: slideUp 0.5s ease forwards; }
         .res-btn { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .accordion-content.open { max-height: 2000px; }
+        .rotate-icon { transition: transform 0.3s ease; }
+        .rotate-icon.active { transform: rotate(180deg); }
     </style>
 </head>
 <body class="font-sans text-[14px]">
@@ -119,6 +123,20 @@
             t.querySelector('span').textContent = msg;
             t.classList.remove('-translate-y-20', 'opacity-0');
             setTimeout(() => t.classList.add('-translate-y-20', 'opacity-0'), 2500);
+        }
+
+        function toggleAccordion(key) {
+            const content = document.getElementById(`content-${key}`);
+            const icon = document.getElementById(`icon-${key}`);
+            const isOpen = content.classList.contains('open');
+            
+            document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+            document.querySelectorAll('.rotate-icon').forEach(el => el.classList.remove('active'));
+
+            if (!isOpen) {
+                content.classList.add('open');
+                icon.classList.add('active');
+            }
         }
 
         function copyResponse(key) {
@@ -260,40 +278,48 @@
                         
                         h += `
                             <div class="api-card-wrapper animate-up" data-tag="${tag}" data-s="${it.path} ${it.summary}">
-                                <div class="card-xte rounded-2xl overflow-hidden h-full flex flex-col">
-                                    <div class="p-6 flex-1">
-                                        <div class="flex justify-between items-center mb-4">
-                                            <span class="method-tag ${m === 'GET' ? 'get-tag' : 'post-tag'}">${m}</span>
-                                            <span class="text-[9px] font-black text-black/20 uppercase tracking-widest">${tag}</span>
-                                        </div>
-                                        <h3 class="text-sm font-mono font-bold text-black mb-1">${it.path}</h3>
-                                        <p class="text-[11px] text-black/40 font-bold uppercase mb-4">${it.summary || 'No description.'}</p>
-                                        
-                                        <div class="curl-box">
-                                            <div class="flex justify-between mb-2">
-                                                <span class="text-[8px] text-xte-orange font-black uppercase">Request Sample</span>
-                                                <button onclick="navigator.clipboard.writeText(document.getElementById('curl-text-${key}').textContent); showToast('COPIED')" class="text-white/40 hover:text-white"><i class="material-icons text-xs">content_copy</i></button>
+                                <div class="card-xte rounded-2xl overflow-hidden">
+                                    <div onclick="toggleAccordion('${key}')" class="p-6 cursor-pointer flex justify-between items-center bg-white hover:bg-black/[0.01] transition-colors">
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-2">
+                                                <span class="method-tag ${m === 'GET' ? 'get-tag' : 'post-tag'}">${m}</span>
+                                                <span class="text-[9px] font-black text-black/20 uppercase tracking-widest">${tag}</span>
                                             </div>
-                                            <code id="curl-text-${key}" class="text-[9px] text-gray-300 font-mono break-all leading-tight">curl -X ${m} "${window.location.origin}${it.path}"</code>
+                                            <h3 class="text-sm font-mono font-bold text-black">${it.path}</h3>
+                                            <p class="text-[10px] text-black/40 font-bold uppercase mt-1">${it.summary || 'No description.'}</p>
                                         </div>
-
-                                        <form id="f-${key}" class="space-y-4">
-                                            ${params.map(p => `
-                                                <div class="space-y-1">
-                                                    <label class="text-[9px] font-black text-black/40 uppercase">${p.name}</label>
-                                                    <input type="text" name="${p.name}" 
-                                                        oninput="updateCurl('${key}', '${m}', '${it.path}')"
-                                                        class="w-full bg-black/5 border border-transparent rounded-lg px-4 py-2 text-[11px] outline-none focus:bg-white focus:border-black/10 transition-all" 
-                                                        placeholder="${p.required ? '(Required)' : '(Optional)'}" ${p.required ? 'required' : ''}>
-                                                </div>
-                                            `).join('')}
-                                            <button type="button" onclick="trigger(${cIdx}, ${eIdx}, '${m}', '${it.path}')" class="w-full bg-black text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-xte-orange transition-all">
-                                                Execute Request
-                                            </button>
-                                        </form>
+                                        <i id="icon-${key}" class="material-icons text-black/20 rotate-icon">expand_more</i>
                                     </div>
-                                    <div id="r-${key}" class="hidden border-t border-black/5 bg-white">
-                                        <div id="rc-${key}"></div>
+
+                                    <div id="content-${key}" class="accordion-content">
+                                        <div class="p-6 pt-0 border-t border-black/5">
+                                            <div class="curl-box mt-6">
+                                                <div class="flex justify-between mb-2">
+                                                    <span class="text-[8px] text-xte-orange font-black uppercase">Request Sample</span>
+                                                    <button onclick="event.stopPropagation(); navigator.clipboard.writeText(document.getElementById('curl-text-${key}').textContent); showToast('COPIED')" class="text-white/40 hover:text-white"><i class="material-icons text-xs">content_copy</i></button>
+                                                </div>
+                                                <code id="curl-text-${key}" class="text-[9px] text-gray-300 font-mono break-all leading-tight">curl -X ${m} "${window.location.origin}${it.path}"</code>
+                                            </div>
+
+                                            <form id="f-${key}" class="space-y-4">
+                                                ${params.map(p => `
+                                                    <div class="space-y-1">
+                                                        <label class="text-[9px] font-black text-black/40 uppercase">${p.name}</label>
+                                                        <input type="text" name="${p.name}" 
+                                                            oninput="updateCurl('${key}', '${m}', '${it.path}')"
+                                                            class="w-full bg-black/5 border border-transparent rounded-lg px-4 py-2 text-[11px] outline-none focus:bg-white focus:border-black/10 transition-all" 
+                                                            placeholder="${p.required ? '(Required)' : '(Optional)'}" ${p.required ? 'required' : ''}>
+                                                    </div>
+                                                `).join('')}
+                                                <button type="button" onclick="trigger(${cIdx}, ${eIdx}, '${m}', '${it.path}')" class="w-full bg-black text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-xte-orange transition-all">
+                                                    Execute Request
+                                                </button>
+                                            </form>
+
+                                            <div id="r-${key}" class="hidden mt-6 border border-black/5 rounded-xl overflow-hidden bg-white">
+                                                <div id="rc-${key}"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -319,3 +345,4 @@
     </script>
 </body>
 </html>
+``` Would you like me to add an export feature to save these API responses as local files?
