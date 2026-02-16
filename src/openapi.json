@@ -636,6 +636,28 @@
         }
       }
     },
+    "/tools/cloneweb": {
+  "get": {
+    "summary": "Website Cloner (ZIP)",
+    "description": "Kloning seluruh aset website menjadi satu file ZIP. Output langsung berupa file download.",
+    "tags": ["Tools"],
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "URL website yang mau di-clone",
+        "schema": { "type": "string", "example": "https://example.com" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "File ZIP Website",
+        "content": { "application/zip": {} }
+      }
+    }
+  }
+},
     "/tools/undress": {
   "get": {
     "summary": "AI Image Alter (Restricted)",
