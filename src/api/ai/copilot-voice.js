@@ -1,16 +1,11 @@
 const WebSocket = require('ws');
 const axios = require('axios');
 const qs = require('qs');
+const fs = require('fs');
+const path = require('path');
+const FormData = require('form-data');
 
-async function copilotChat(message, model = 'default') {
-    const models = {
-        default: 'chat',
-        'think-deeper': 'reasoning',
-        'gpt-5': 'smart'
-    };
-
-    if (!models[model]) throw new Error(`Model tersedia: ${Object.keys(models).join(', ')}`);
-
+async function copilotChat(message) {
     const { data } = await axios.post('https://copilot.microsoft.com/c/api/conversations', null, {
         headers: {
             origin: 'https://copilot.microsoft.com',
@@ -40,7 +35,7 @@ async function copilotChat(message, model = 'default') {
 
             ws.send(JSON.stringify({
                 event: 'send',
-                mode: models[model],
+                mode: 'chat',
                 conversationId,
                 content: [{ type: 'text', text: message + ". Jawab maksimal 2 kalimat saja." }],
                 context: {}
@@ -53,10 +48,6 @@ async function copilotChat(message, model = 'default') {
                 if (parsed.event === 'appendText') resultText += parsed.text || '';
                 if (parsed.event === 'done') {
                     resolve(resultText);
-                    ws.close();
-                }
-                if (parsed.event === 'error') {
-                    reject(new Error(parsed.message));
                     ws.close();
                 }
             } catch (error) {
@@ -81,30 +72,30 @@ async function getAudioMP3(text) {
     });
     
     let base64 = response.data.base64Audio;
-    if (!base64) throw new Error("Gagal konversi ke audio.");
     if (base64.includes(',')) base64 = base64.split(',')[1];
     return Buffer.from(base64, 'base64');
 }
 
 module.exports = function (app) {
     app.get("/ai/copilot-voice", async (req, res) => {
-        const { text, model } = req.query;
+        const { text } = req.query;
 
-        if (!text) {
-            return res.status(400).json({ status: false, error: "Parameter 'text' wajib diisi!" });
-        }
+        if (!text) return res.status(400).json({ status: false, error: "Teks wajib diisi!" });
 
         try {
-            const aiReply = await copilotChat(text, model || 'default');
+            const aiReply = await copilotChat(text);
             const audioBuffer = await getAudioMP3(aiReply);
-
-            res.set({
-                'Content-Type': 'audio/mpeg',
-                'Content-Length': audioBuffer.length,
-                'X-AI-Reply': encodeURIComponent(aiReply)
-            });
             
-            return res.send(audioBuffer);
+            const base64Audio = audioBuffer.toString('base64');
+
+            res.status(200).json({
+                status: true,
+                creator: "D2:业",
+                result: {
+                    text: aiReply,
+                    audio_base64: "data:audio/mp3;base64," + base64Audio
+                }
+            });
 
         } catch (err) {
             res.status(500).json({ status: false, error: err.message });
