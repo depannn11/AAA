@@ -528,6 +528,55 @@
     }
   }
 },
+    "/stalk/tiktok-v2": {
+  "get": {
+    "summary": "TikTok Stalker V2 (Direct)",
+    "description": "Mengambil data profil TikTok secara mendalam (followers, bio, region, status verifikasi) langsung melalui scraping web resmi TikTok.",
+    "tags": ["Stalk"],
+    "parameters": [
+      {
+        "name": "username",
+        "in": "query",
+        "required": true,
+        "description": "Username TikTok yang ingin dicek (contoh: tiktok)",
+        "schema": {
+          "type": "string",
+          "example": "tiktok"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Berhasil mendapatkan detail profil pengguna",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "boolean" },
+                "creator": { "type": "string" },
+                "result": {
+                  "type": "object",
+                  "properties": {
+                    "user": { "type": "object" },
+                    "stats": { "type": "object" },
+                    "meta": { "type": "object" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Pengguna tidak ditemukan atau akun privat"
+      },
+      "500": {
+        "description": "Terjadi kesalahan pada server atau struktur TikTok berubah"
+      }
+    }
+  }
+},
     "/stalk/gsmarena": {
   "get": {
     "summary": "GSMArena Search",
