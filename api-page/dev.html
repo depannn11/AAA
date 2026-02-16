@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Profile | Dinzo Apis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'mono': ['JetBrains Mono', 'monospace'],
+                        'sans': ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            background: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(147, 51, 234, 0.05) 0px, transparent 50%);
+            color: #000000; 
+            min-height: 100vh;
+            padding-bottom: 120px;
+        }
+
+        .floating-nav {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 8px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .nav-item {
+            padding: 10px 18px;
+            border-radius: 18px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center; gap: 8px;
+        }
+
+        .nav-item:hover { color: #ffffff; background: rgba(255, 255, 255, 0.05); }
+        .nav-item.active { background: #ffffff; color: #000000; }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 3rem;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 2.5rem;
+            filter: grayscale(100%);
+            transition: all 0.5s ease;
+        }
+
+        .profile-card:hover .profile-image {
+            filter: grayscale(0%);
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .badge-dev {
+            background: #000;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex items-center justify-center">
+
+    <nav class="floating-nav">
+        <a href="/" class="nav-item">
+            <i class="material-icons">home</i>
+            <span class="hidden md:block">Home</span>
+        </a>
+        <a href="/docs" class="nav-item">
+            <i class="material-icons">description</i>
+            <span class="hidden md:block">Docs</span>
+        </a>
+        <a href="/legal" class="nav-item">
+            <i class="material-icons">gavel</i>
+            <span class="hidden md:block">Legal</span>
+        </a>
+        <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+        <a href="/dev" class="nav-item active">
+            <i class="material-icons text-blue-400">account_circle</i>
+            <span class="hidden md:block text-blue-400">Dev</span>
+        </a>
+    </nav>
+
+    <div class="max-w-md w-full px-6">
+        <div class="profile-card p-10 text-center shadow-xl">
+            <div class="relative inline-block mb-8">
+                <img src="https://files.catbox.moe/piiki0.png" alt="Developer" class="profile-image shadow-2xl shadow-black/10">
+                <div class="absolute -bottom-2 -right-2 bg-green-500 w-6 h-6 rounded-full border-4 border-white"></div>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex justify-center mb-3">
+                    <span class="badge-dev">Core Maintainer</span>
+                </div>
+                <h1 class="text-3xl font-black tracking-tighter uppercase text-black">XTE ID</h1>
+                <p class="text-[10px] font-bold text-black/30 tracking-[0.3em] uppercase">Backend Developer</p>
+            </div>
+
+            <p class="text-xs text-black/50 leading-relaxed mb-10 font-medium">
+                Passionate about building high-performance APIs and scalable infrastructure. Architect of Dinzo Framework.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4 mb-10">
+                <div class="p-4 bg-black/5 rounded-2xl">
+                    <p class="text-[14px] font-black text-black">50+</p>
+                    <p class="text-[8px] font-bold text-black/30 uppercase tracking-widest">Apis Built</p>
+                </div>
+                <div class="p-4 bg-black/5 rounded-2xl">
+                    <p class="text-[14px] font-black text-black">24/7</p>
+                    <p class="text-[8px] font-bold text-black/30 uppercase tracking-widest">Uptime</p>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <a href="https://wa.me/6288242449961" class="flex-1 bg-black text-white py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:opacity-80 transition-all">
+                    Message
+                </a>
+                <a href="https://t.me/depstore11" class="w-14 bg-black/5 text-black py-4 rounded-2xl flex items-center justify-center hover:bg-black/10 transition-all">
+                    <i class="material-icons text-sm">send</i>
+                </a>
+            </div>
+        </div>
+        
+        <p class="text-center mt-8 text-[9px] font-black text-black/20 uppercase tracking-[0.4em]">
+            Authorized Developer Protocol
+        </p>
+    </div>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinzo Apis</title>
+    <title>Dinzo Apis - Docs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,15 +14,6 @@
                     fontFamily: {
                         'mono': ['JetBrains Mono', 'monospace'],
                         'sans': ['Plus Jakarta Sans', 'sans-serif']
-                    },
-                    animation: {
-                        'shimmer': 'shimmer 2s linear infinite',
-                    },
-                    keyframes: {
-                        shimmer: {
-                            '0%': { backgroundPosition: '-200% 0' },
-                            '100%': { backgroundPosition: '200% 0' }
-                        }
                     }
                 }
             }
@@ -36,186 +27,152 @@
         body { 
             background: #ffffff;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(147, 51, 234, 0.08) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(250, 250, 250, 1) 0px, transparent 80%);
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(147, 51, 234, 0.05) 0px, transparent 50%);
             color: #000000; 
             min-height: 100vh;
-            overflow-x: hidden;
+            padding-bottom: 120px;
         }
 
-        .glass {
-            background: rgba(0, 0, 0, 0.02);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        .floating-nav {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 8px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
+
+        .nav-item {
+            padding: 10px 18px;
+            border-radius: 18px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:hover { color: #ffffff; background: rgba(255, 255, 255, 0.05); }
+        .nav-item.active { background: #ffffff; color: #000000; }
 
         .neo-card {
             background: rgba(0, 0, 0, 0.01);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
             border: 1px solid rgba(0, 0, 0, 0.06);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 2rem;
+            transition: all 0.4s ease;
         }
 
-        .neo-card:hover {
-            background: rgba(0, 0, 0, 0.03);
-            border-color: rgba(0, 0, 0, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.05);
-        }
-
-        .category-pill {
-            background: rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            color: rgba(0, 0, 0, 0.4);
-        }
-
-        .category-pill.active {
-            background: #000000;
-            color: #ffffff;
-            transform: scale(1.05);
-        }
+        .neo-card:hover { border-color: rgba(0, 0, 0, 0.15); }
 
         .method-badge {
             font-size: 9px;
             font-weight: 800;
             padding: 4px 10px;
             border-radius: 6px;
+        }
+
+        .get-badge { background: #eff6ff; color: #2563eb; }
+        .post-badge { background: #ecfdf5; color: #059669; }
+
+        .category-pill {
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
             letter-spacing: 0.05em;
+            color: rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
         }
 
-        .get-badge { background: rgba(59, 130, 246, 0.1); color: #2563eb; border: 1px solid rgba(59, 130, 246, 0.2); }
-        .post-badge { background: rgba(16, 185, 129, 0.1); color: #059669; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .category-pill.active { background: #000; color: #fff; }
 
-        .skeleton {
-            background: linear-gradient(90deg, rgba(0,0,0,0.03) 25%, rgba(0,0,0,0.06) 50%, rgba(0,0,0,0.03) 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-
-        input::placeholder { color: rgba(0, 0, 0, 0.3); }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .animate-card { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .animate-item { animation: slideIn 0.5s ease forwards; }
     </style>
 </head>
 <body class="font-sans antialiased">
 
-    <header class="sticky top-0 z-50 glass border-b border-black/5">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
-                    <i class="material-icons text-white text-xl">bolt</i>
+    <nav class="floating-nav">
+        <a href="/" class="nav-item">
+            <i class="material-icons">home</i>
+            <span class="hidden md:block">Home</span>
+        </a>
+        <a href="/docs" class="nav-item active">
+            <i class="material-icons">description</i>
+            <span class="hidden md:block">Docs</span>
+        </a>
+        <a href="/legal" class="nav-item">
+            <i class="material-icons">gavel</i>
+            <span class="hidden md:block">Legal</span>
+        </a>
+        <div class="w-[1px] h-6 bg-white/10 mx-1"></div>
+        <a href="/dev" class="nav-item">
+            <i class="material-icons text-blue-400">account_circle</i>
+            <span class="hidden md:block text-blue-400">Dev</span>
+        </a>
+    </nav>
+
+    <header class="h-20 flex items-center border-b border-black/5 bg-white/50 backdrop-blur-xl sticky top-0 z-40 px-6">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                    <i class="material-icons text-white text-lg">auto_stories</i>
                 </div>
-                <div>
-                    <h1 class="text-xl font-black tracking-tighter leading-none text-black">DINZO <span class="text-black/30">APIS</span></h1>
-                    <span class="text-[8px] font-bold text-blue-600 uppercase tracking-[0.4em]">v2.0</span>
-                </div>
+                <h1 class="font-black text-sm tracking-tighter uppercase">Dinzo Api's</h1>
             </div>
-            <div class="hidden md:flex items-center gap-6">
-                <nav class="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-black/40">
-                    <a href="/docs" class="hover:text-black transition-colors">Endpoint List</a>
-                    <a href="/ntfound" class="hover:text-black transition-colors">Architecture</a>
-                    <a href="/ntfound" class="hover:text-black transition-colors">Pricing</a>
-                </nav>
-                <div class="h-8 w-[1px] bg-black/10 mx-2"></div>
-                <div class="px-4 py-2 glass rounded-lg flex items-center gap-2 border-green-600/20">
-                    <div class="w-1.5 h-1.5 bg-green-600 rounded-full shadow-[0_0_10px_rgba(22,163,74,0.4)]"></div>
-                    <span class="text-[9px] font-black uppercase tracking-widest text-green-600">Active</span>
-                </div>
+            <div class="text-[10px] font-bold text-black/40 bg-black/5 px-3 py-1 rounded-full border border-black/5">
+                v2.0.4
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 md:px-12 py-16">
-        <div class="mb-20">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-black/10 bg-black/5 mb-6">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-                </span>
-                <span class="text-[9px] font-bold uppercase tracking-widest text-blue-600">Production Environment Ready</span>
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-12">
+            <h2 class="text-4xl md:text-6xl font-black tracking-tighter mb-4 text-black uppercase">Dinzo Api's <span class="text-black/20">Endepoint</span></h2>
+            <p class="text-xs text-black/50 max-w-xl font-medium leading-relaxed uppercase tracking-wider">This endpoint api was created by the xte id developer team.</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6 mb-10 items-start md:items-center">
+            <div class="w-full md:w-80 relative">
+                <i class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-black/20 text-sm">search</i>
+                <input type="text" id="apiSearch" placeholder="SEARCH ENDPOINT..." class="w-full bg-black/5 border border-black/5 rounded-xl pl-11 pr-4 py-3 text-[10px] font-black tracking-widest outline-none focus:border-black/20 transition-all uppercase">
             </div>
-            <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 text-black">Explore the <br/><span class="text-black/20">Apis.</span></h2>
-            
-            <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between mt-12">
-                <div class="w-full md:w-96 relative">
-                    <i class="material-icons absolute left-5 top-1/2 -translate-y-1/2 text-black/30 text-sm">search</i>
-                    <input type="text" id="apiSearch" placeholder="Search by path or description..." class="w-full rounded-2xl pl-12 pr-6 py-4 text-xs glass border-black/10 focus:border-black/30 transition-all outline-none text-black">
-                </div>
-                
-                <div class="flex gap-2 overflow-x-auto no-scrollbar w-full md:w-auto py-2">
-                    <button onclick="filterCategory('all', this)" class="category-pill active px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest">All</button>
-                    <div id="categoryContainer" class="flex gap-2"></div>
-                </div>
+            <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full py-1">
+                <button onclick="filterCategory('all', this)" class="category-pill active">All</button>
             </div>
         </div>
 
         <div id="apiContent" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div class="col-span-full grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="h-[400px] neo-card rounded-[2rem] skeleton"></div>
-                <div class="h-[400px] neo-card rounded-[2rem] skeleton"></div>
+            <div class="col-span-full py-20 flex flex-col items-center opacity-20">
+                <div class="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin mb-4"></div>
+                <span class="text-[10px] font-black uppercase tracking-widest">Initialising Documents...</span>
             </div>
         </div>
-
-        <footer class="mt-32 pb-16 border-t border-black/5 pt-16">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-8 h-8 bg-black/5 rounded-lg flex items-center justify-center">
-                            <i class="material-icons text-black text-sm">code</i>
-                        </div>
-                        <h4 class="font-black tracking-tighter text-black">DINZO APIS</h4>
-                    </div>
-                    <p class="text-xs text-black/50 leading-relaxed max-w-sm">
-                        High-performance API infrastructure providing reliable data endpoints for developers worldwide. Built for speed, documented for humans.
-                    </p>
-                </div>
-                <div>
-                    <h5 class="text-[10px] font-black uppercase tracking-[0.2em] mb-6 text-black/60">Resources</h5>
-                    <ul class="space-y-4 text-xs font-bold text-black/30">
-                        <li><a href="/docs" class="hover:text-black transition-colors">Documentation</a></li>
-                        <li><a href="/ntfound" class="hover:text-black transition-colors">Global Status</a></li>
-                        <li><a href="/" class="hover:text-black transition-colors">Home</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="text-[10px] font-black uppercase tracking-[0.2em] mb-6 text-black/60">Community</h5>
-                    <ul class="space-y-4 text-xs font-bold text-black/30">
-                        <li><a href="t.me/depstore11" class="hover:text-black transition-colors">Telegram</a></li>
-                        <li><a href="depstore.my.id" class="hover:text-black transition-colors">Website</a></li>
-                        <li><a href="wa.me/628824244996" class="hover:text-black transition-colors">WhatsApp</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-t border-black/5 pt-8">
-                <p class="text-[9px] text-black/30 font-bold uppercase tracking-widest">© <span id="year"></span> Dinzo Apis Framework. All Rights Reserved.</p>
-                <div class="flex gap-6">
-                    <div class="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-black/5 cursor-pointer transition-all">
-                        <i class="material-icons text-xs text-black/40">language</i>
-                    </div>
-                    <div class="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-black/5 cursor-pointer transition-all">
-                        <i class="material-icons text-xs text-black/40">terminal</i>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </main>
 
-    <div id="toast" class="fixed bottom-8 right-8 translate-y-20 opacity-0 transition-all duration-500 z-[100]">
-        <div class="glass border-black/10 px-6 py-3 rounded-xl flex items-center gap-3 shadow-2xl bg-white">
-            <i class="material-icons text-green-600 text-sm">check_circle</i>
-            <span class="text-[10px] font-black uppercase tracking-widest text-black">Action Successful</span>
+    <div id="toast" class="fixed top-6 left-1/2 -translate-x-1/2 -translate-y-20 opacity-0 transition-all duration-500 z-[100]">
+        <div class="bg-black text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3">
+            <i class="material-icons text-white text-sm">check_circle</i>
+            <span class="text-[10px] font-black uppercase tracking-widest">Action Success</span>
         </div>
     </div>
 
@@ -223,36 +180,11 @@
         const rawStore = {};
         let activeTag = 'all';
 
-        function showToast(msg = 'Copied to clipboard') {
+        function showToast(msg) {
             const t = document.getElementById('toast');
             t.querySelector('span').textContent = msg;
-            t.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 3000);
-        }
-
-        function copy(text) { 
-            navigator.clipboard.writeText(text);
-            showToast();
-        }
-
-        function updateCurl(key, path, method) {
-            const form = document.getElementById(`f-${key}`);
-            const curlDisplay = document.getElementById(`curl-${key}`);
-            const fd = new FormData(form);
-            const params = new URLSearchParams();
-            
-            for (const [k, v] of fd.entries()) {
-                if(v) params.append(k, v);
-            }
-
-            let fullUrl = window.location.origin + path;
-            const query = params.toString();
-            if (query && method === 'GET') {
-                fullUrl += (fullUrl.includes('?') ? '&' : '?') + query;
-            }
-
-            curlDisplay.textContent = `curl -X ${method} "${fullUrl}"`;
-            return fullUrl;
+            t.classList.remove('-translate-y-20', 'opacity-0');
+            setTimeout(() => t.classList.add('-translate-y-20', 'opacity-0'), 2500);
         }
 
         async function trigger(cIdx, eIdx, method, path) {
@@ -261,35 +193,24 @@
             const resultBox = document.getElementById(`r-${key}`);
             const resultContent = document.getElementById(`rc-${key}`);
             const btn = form.querySelector('button');
-            const originalBtnText = btn.innerHTML;
             
             resultBox.classList.remove('hidden');
-            resultContent.innerHTML = `
-                <div class="p-12 flex flex-col items-center">
-                    <div class="w-5 h-5 border-2 border-black/10 border-t-blue-600 rounded-full animate-spin mb-4"></div>
-                    <span class="text-[8px] font-black uppercase tracking-[0.3em] text-black/20">Processing Request</span>
-                </div>
-            `;
-
+            resultContent.innerHTML = `<div class="p-10 flex justify-center"><div class="w-5 h-5 border-2 border-black/10 border-t-black rounded-full animate-spin"></div></div>`;
             btn.disabled = true;
-            btn.innerHTML = '<span class="animate-pulse">Executing...</span>';
 
             const fd = new FormData(form);
-            let finalUrl = path;
+            let url = path;
             const cfg = { method: method.toUpperCase() };
 
             if (cfg.method === 'GET') {
                 const p = new URLSearchParams();
                 for (const [k, v] of fd.entries()) if(v) p.append(k, v);
-                const qs = p.toString();
-                if (qs) finalUrl += (finalUrl.includes('?') ? '&' : '?') + qs;
-            } else { 
-                cfg.body = fd; 
-            }
+                if (p.toString()) url += (url.includes('?') ? '&' : '?') + p.toString();
+            } else { cfg.body = fd; }
 
             try {
                 const start = Date.now();
-                const res = await fetch(finalUrl, cfg);
+                const res = await fetch(url, cfg);
                 const time = Date.now() - start;
                 const type = res.headers.get('content-type') || '';
                 let out = '';
@@ -298,48 +219,30 @@
                     const blob = await res.blob();
                     const bUrl = URL.createObjectURL(blob);
                     rawStore[key] = bUrl;
-                    out = `<div class="p-8 flex justify-center bg-black/5"><img src="${bUrl}" class="max-h-80 rounded-xl shadow-2xl border border-black/5"></div>`;
+                    out = `<div class="p-6 bg-black/5 flex justify-center"><img src="${bUrl}" class="max-h-64 rounded-lg shadow-sm border border-black/5"></div>`;
                 } else {
                     const text = await res.text();
                     try {
                         const json = JSON.parse(text);
                         rawStore[key] = json;
-                        out = `<pre class="p-6 text-[11px] font-mono overflow-auto max-h-80 text-blue-700/90 leading-relaxed bg-black/5"><code>${JSON.stringify(json, null, 2)}</code></pre>`;
+                        out = `<pre class="p-6 text-[10px] font-mono overflow-auto max-h-64 bg-black/5 text-black/70"><code>${JSON.stringify(json, null, 2)}</code></pre>`;
                     } catch {
                         rawStore[key] = text;
-                        out = `<pre class="p-6 text-[11px] font-mono overflow-auto max-h-80 text-black/60 leading-relaxed bg-black/5">${text}</pre>`;
+                        out = `<pre class="p-6 text-[10px] font-mono overflow-auto max-h-64 bg-black/5 text-black/70">${text}</pre>`;
                     }
                 }
 
                 resultContent.innerHTML = `
-                    <div class="flex items-center justify-between px-6 py-3 border-b border-black/5 bg-black/[0.01]">
-                        <div class="flex gap-8">
-                            <div class="flex flex-col">
-                                <span class="text-[7px] font-black text-black/20 uppercase tracking-widest mb-1">Status</span>
-                                <span class="text-[10px] font-black ${res.ok ? 'text-green-600' : 'text-red-600'}">${res.status} ${res.statusText}</span>
-                            </div>
-                            <div class="flex flex-col">
-                                <span class="text-[7px] font-black text-black/20 uppercase tracking-widest mb-1">Response Time</span>
-                                <span class="text-[10px] font-black text-black/70">${time}ms</span>
-                            </div>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onclick="copy(typeof rawStore['${key}'] === 'object' ? JSON.stringify(rawStore['${key}']) : rawStore['${key}'])" class="w-8 h-8 glass rounded-lg flex items-center justify-center hover:bg-black/5 transition-all"><i class="material-icons text-xs text-black">content_copy</i></button>
-                        </div>
+                    <div class="flex items-center justify-between px-6 py-3 border-b border-black/5 bg-black/[0.02]">
+                        <span class="text-[9px] font-black text-black/30 uppercase tracking-widest">${res.status} HTTP • ${time}MS</span>
+                        <button onclick="navigator.clipboard.writeText(typeof rawStore['${key}'] === 'string' ? rawStore['${key}'] : JSON.stringify(rawStore['${key}'])); showToast('COPIED TO CLIPBOARD')" class="text-[9px] font-black uppercase text-black/40 hover:text-black transition-colors">COPY RAW</button>
                     </div>
                     ${out}
                 `;
             } catch (e) {
-                resultContent.innerHTML = `
-                    <div class="p-12 text-center">
-                        <i class="material-icons text-red-600/50 mb-2">error_outline</i>
-                        <div class="text-red-600/80 text-[9px] font-black uppercase tracking-widest">Request Failed</div>
-                        <div class="text-black/30 text-[10px] mt-1">${e.message}</div>
-                    </div>`;
+                resultContent.innerHTML = `<div class="p-8 text-center text-red-500 text-[10px] font-black uppercase tracking-widest">${e.message}</div>`;
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = originalBtnText;
-                resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
         }
 
@@ -370,49 +273,41 @@
                 });
 
                 let h = '';
-                let cats = '';
                 Object.entries(grouped).forEach(([tag, items], cIdx) => {
-                    cats += `<button onclick="filterCategory('${tag}', this)" class="category-pill px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:text-black">${tag}</button>`;
+                    const catBtn = document.createElement('button');
+                    catBtn.className = 'category-pill';
+                    catBtn.textContent = tag;
+                    catBtn.onclick = (e) => filterCategory(tag, e.target);
+                    catContainer.appendChild(catBtn);
+
                     items.forEach((it, eIdx) => {
                         const key = `${cIdx}-${eIdx}`;
                         const m = it.method.toUpperCase();
                         const params = it.parameters || [];
                         h += `
-                            <div class="api-card-wrapper animate-card" data-tag="${tag}" data-s="${it.path} ${it.summary}">
-                                <div class="neo-card rounded-[2rem] overflow-hidden flex flex-col h-full border border-black/5">
-                                    <div class="p-8 md:p-10 flex-1">
-                                        <div class="flex items-center justify-between mb-8">
+                            <div class="api-card-wrapper animate-item" data-tag="${tag}" data-s="${it.path} ${it.summary}">
+                                <div class="neo-card overflow-hidden h-full flex flex-col">
+                                    <div class="p-8 flex-1">
+                                        <div class="flex justify-between items-start mb-6">
                                             <span class="method-badge ${m === 'GET' ? 'get-badge' : 'post-badge'}">${m}</span>
-                                            <span class="text-[8px] font-black text-black/30 uppercase tracking-[0.2em]">${tag}</span>
+                                            <span class="text-[8px] font-black text-black/20 uppercase tracking-[0.2em]">${tag}</span>
                                         </div>
-                                        <h3 class="text-base font-mono font-bold mb-3 text-black/90 truncate">${it.path}</h3>
-                                        <p class="text-xs text-black/50 mb-8 leading-relaxed line-clamp-2">${it.summary || 'Endpoint ready for integration.'}</p>
+                                        <h3 class="text-[13px] font-mono font-bold mb-2 text-black truncate">${it.path}</h3>
+                                        <p class="text-[10px] text-black/40 mb-8 font-medium line-clamp-2">${it.summary || 'No detailed documentation available.'}</p>
                                         
-                                        <div class="mb-8">
-                                            <div class="flex justify-between items-center mb-3">
-                                                <label class="text-[8px] font-black text-black/30 uppercase tracking-widest ml-1">Live cURL</label>
-                                                <button onclick="copy(document.getElementById('curl-${key}').textContent)" class="text-black/20 hover:text-black transition-colors"><i class="material-icons text-[14px]">content_copy</i></button>
-                                            </div>
-                                            <div class="bg-black/5 rounded-xl px-4 py-3 text-[10px] font-mono text-black/60 overflow-hidden border border-black/5">
-                                                <code id="curl-${key}" class="whitespace-nowrap">curl -X ${m} "${window.location.origin}${it.path}"</code>
-                                            </div>
-                                        </div>
-
-                                        <form id="f-${key}" class="space-y-4" oninput="updateCurl('${key}', '${it.path}', '${m}')">
+                                        <form id="f-${key}" class="space-y-4">
                                             ${params.map(p => `
-                                                <div class="relative">
-                                                    <label class="block text-[8px] font-black text-black/30 uppercase tracking-widest mb-2 ml-1">
-                                                        ${p.name} ${p.required ? '<span class="text-red-500/40">*</span>' : ''}
-                                                    </label>
-                                                    <input type="text" name="${p.name}" class="w-full px-5 py-3.5 rounded-xl text-[11px] glass border-black/5 focus:border-blue-600/30 transition-all outline-none text-black" placeholder="Enter ${p.name}..." ${p.required ? 'required' : ''}>
+                                                <div class="space-y-2">
+                                                    <label class="block text-[8px] font-black text-black/30 uppercase tracking-widest ml-1">${p.name} ${p.required ? '<span class="text-red-400">*</span>' : ''}</label>
+                                                    <input type="text" name="${p.name}" class="w-full px-4 py-3 rounded-xl text-[10px] font-medium bg-black/5 border border-transparent focus:border-black/10 focus:bg-white outline-none transition-all" placeholder="Enter ${p.name}..." ${p.required ? 'required' : ''}>
                                                 </div>
                                             `).join('')}
-                                            <button type="button" onclick="trigger(${cIdx}, ${eIdx}, '${m}', '${it.path}')" class="w-full bg-black text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-gray-900 transition-all active:scale-[0.98] mt-4 shadow-[0_10px_20px_rgba(0,0,0,0.1)]">
-                                                Test Request
+                                            <button type="button" onclick="trigger(${cIdx}, ${eIdx}, '${m}', '${it.path}')" class="w-full bg-black text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:opacity-90 active:scale-[0.98] transition-all mt-4">
+                                                Test Endpoint
                                             </button>
                                         </form>
                                     </div>
-                                    <div id="r-${key}" class="hidden bg-black/[0.01] border-t border-black/5">
+                                    <div id="r-${key}" class="hidden border-t border-black/5">
                                         <div id="rc-${key}"></div>
                                     </div>
                                 </div>
@@ -421,9 +316,8 @@
                     });
                 });
                 container.innerHTML = h;
-                catContainer.innerHTML = cats;
             } catch (e) {
-                container.innerHTML = `<div class="col-span-full py-20 text-center opacity-40 font-black uppercase tracking-widest text-xs">Failed to load API schema</div>`;
+                container.innerHTML = `<div class="col-span-full py-20 text-center text-black/30 font-black uppercase text-[10px] tracking-widest">OpenAPI Schema Not Found</div>`;
             }
         }
 
@@ -436,7 +330,6 @@
             });
         };
 
-        document.getElementById('year').textContent = new Date().getFullYear();
         window.addEventListener('load', init);
     </script>
 </body>
