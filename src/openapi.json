@@ -274,17 +274,6 @@
     "responses": { "200": { "description": "Info file JSON" } }
   }
 },
-"/download/mediafire-v2": {
-  "get": {
-    "summary": "Mediafire Direct (Biner)",
-    "description": "Langsung download file Mediafire tanpa lewat dashboard.",
-    "tags": ["Downloader"],
-    "parameters": [
-      { "name": "url", "in": "query", "required": true, "schema": { "type": "string", "example": "https://www.mediafire.com/file/xxx/file" } }
-    ],
-    "responses": { "200": { "description": "Raw File" } }
-  }
-},
     "/download/ytmp4": {
   "get": {
     "summary": "YouTube Video Downloader (HD)",
