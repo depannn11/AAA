@@ -509,6 +509,25 @@
         }
       }
     },
+    "/stalk/tiktok": {
+  "get": {
+    "summary": "TikTok Stalker",
+    "description": "Melihat data profil dan 10 video terbaru dari username TikTok tertentu.",
+    "tags": ["Stalk"],
+    "parameters": [
+      {
+        "name": "username",
+        "in": "query",
+        "required": true,
+        "description": "Username TikTok (tanpa @)",
+        "schema": { "type": "string", "example": "tzy_how" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Berhasil mengambil data" }
+    }
+  }
+},
     "/stalk/gsmarena": {
   "get": {
     "summary": "GSMArena Search",
