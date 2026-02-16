@@ -636,6 +636,23 @@
         }
       }
     },
+    "/tools/tourl": {
+  "post": {
+    "summary": "Branded Tourl (api.xte.web.id)",
+    "tags": ["Tools"],
+    "requestBody": {
+      "content": {
+        "multipart/form-data": {
+          "schema": {
+            "type": "object",
+            "properties": { "file": { "type": "string", "format": "binary" } }
+          }
+        }
+      }
+    },
+    "responses": { "200": { "description": "Link branded sukses" } }
+  }
+},
     "/tools/cloneweb": {
   "get": {
     "summary": "Website Cloner (ZIP)",
