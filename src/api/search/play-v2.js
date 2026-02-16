@@ -14,25 +14,25 @@ async function getMp3(query) {
 }
 
 module.exports = function (app) {
-    app.get("/search/play-v2", async (req, res) => {
+    app.get("/music/play-v2", async (req, res) => {
         const { q } = req.query;
-        if (!q) return res.status(400).send("Judulnya mana, Bos?");
+        if (!q) return res.status(400).json({ status: false, error: "Judulnya mana?" });
 
         try {
             const audioUrl = await getMp3(q);
-            if (!audioUrl) return res.status(404).send("Lagu gak ketemu!");
+            if (!audioUrl) return res.status(404).json({ status: false, error: "Lagu gak ketemu!" });
 
-            const response = await axios.get(audioUrl, { responseType: 'arraybuffer' });
-            
-            res.set({
-                'Content-Type': 'audio/mpeg',
-                'Content-Length': response.data.length,
-                'Cache-Control': 'public, max-age=3600'
+            // KIRIM JSON AJA BIAR DASHBOARD GAK ERROR
+            res.json({
+                status: true,
+                creator: "D2:业",
+                result: {
+                    title: q,
+                    download_url: audioUrl // User tinggal klik link ini
+                }
             });
-
-            return res.send(Buffer.from(response.data));
         } catch (err) {
-            res.status(500).send("Error: " + err.message);
+            res.status(500).json({ status: false, error: err.message });
         }
     });
 };
