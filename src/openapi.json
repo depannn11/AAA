@@ -247,27 +247,7 @@
       }
     }
   },
-    "/anime/kurama-search": {
-  "get": {
-    "summary": "Kuramanime Search",
-    "tags": ["Anime"],
-    "parameters": [
-      { "name": "q", "in": "query", "required": true, "schema": { "type": "string", "example": "boruto" } }
-    ],
-    "responses": { "200": { "description": "Daftar anime" } }
-  }
-},
-"/anime/kurama-detail": {
-  "get": {
-    "summary": "Kuramanime Detail & Episodes",
-    "tags": ["Anime"],
-    "parameters": [
-      { "name": "id", "in": "query", "required": true, "schema": { "type": "string", "example": "165" } },
-      { "name": "slug", "in": "query", "required": true, "schema": { "type": "string", "example": "boruto-naruto-next-generations" } }
-    ],
-    "responses": { "200": { "description": "Detail anime & list episode" } }
-  }
-},
+  
 "/anime/waifu": {
   "get": {
     "summary": "Random Waifu Image",
