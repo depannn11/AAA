@@ -115,6 +115,49 @@
     }
   }
 },
+    "/ai/zonerai": {
+  "get": {
+    "summary": "AI Text to Image (Zonerai)",
+    "description": "Generate gambar dari teks menggunakan Zonerai AI. Hasil langsung berupa gambar.",
+    "tags": ["AI"],
+    "parameters": [
+      {
+        "name": "prompt",
+        "in": "query",
+        "required": true,
+        "description": "Deskripsi gambar yang ingin dibuat",
+        "schema": { "type": "string", "example": "cyberpunk samurai girl, ultra detailed, 4k" }
+      },
+      {
+        "name": "size",
+        "in": "query",
+        "required": false,
+        "description": "Pilih ukuran gambar (Dropdown)",
+        "schema": {
+          "type": "string",
+          "default": "1024x1024",
+          "enum": [
+            "1024x1024",
+            "1216x832",
+            "1152x896",
+            "1344x768",
+            "1563x640",
+            "832x1216",
+            "896x1152",
+            "768x1344",
+            "640x1536"
+          ]
+        }
+      }
+    ],
+    "responses": {
+      "200": { 
+        "description": "Image PNG",
+        "content": { "image/png": {} }
+      }
+    }
+  }
+},
       "/ai/copilot": {
   "get": {
     "summary": "Copilot Chat",
