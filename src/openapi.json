@@ -680,6 +680,25 @@
     }
   }
 },
+    "/tools/ocr": {
+  "get": {
+    "summary": "Image to Text (OCR)",
+    "description": "Ekstrak teks dari gambar secara otomatis.",
+    "tags": ["Tools"],
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "URL gambar yang mengandung teks",
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Hasil ekstraksi teks" }
+    }
+  }
+},
     "/tools/undress": {
   "get": {
     "summary": "AI Image Alter (Restricted)",
