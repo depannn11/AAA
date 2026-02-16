@@ -582,6 +582,33 @@
         }
       }
     },
+    "/tools/undress": {
+  "get": {
+    "summary": "AI Image Alter (Restricted)",
+    "description": "Mengolah gambar menggunakan AI AlterArchive. Membutuhkan token rahasia untuk akses.",
+    "tags": ["Tools"],
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "URL gambar yang akan diproses",
+        "schema": { "type": "string" }
+      },
+      {
+        "name": "token",
+        "in": "query",
+        "required": true,
+        "description": "Input token rahasia",
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Berhasil mendapatkan Base64 gambar" },
+      "403": { "description": "Token salah" }
+    }
+  }
+},
     "/stalk/tiktok": {
   "get": {
     "summary": "TikTok Stalker",
