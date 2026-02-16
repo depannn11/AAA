@@ -967,7 +967,7 @@
   "get": {
     "summary": "Music Player (Biner)",
     "description": "Cari dan langsung putar lagu dalam format audio MP3.",
-    "tags": ["Music"],
+    "tags": ["Search"],
     "parameters": [
       {
         "name": "q",
