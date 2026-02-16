@@ -14,7 +14,7 @@ async function getMp3(query) {
 }
 
 module.exports = function (app) {
-    app.get("/music/play-v2", async (req, res) => {
+    app.get("/search/play-v2", async (req, res) => {
         const { q } = req.query;
         if (!q) return res.status(400).json({ status: false, error: "Judulnya mana?" });
 
