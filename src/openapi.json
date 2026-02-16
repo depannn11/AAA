@@ -680,6 +680,28 @@
     }
   }
 },
+    "/tools/bahlil": {
+  "get": {
+    "summary": "Meme Generator (Bahlil)",
+    "description": "Bikin meme teks di papan yang dipegang Bahlil. Output langsung Biner PNG.",
+    "tags": ["Tools"],
+    "parameters": [
+      {
+        "name": "text",
+        "in": "query",
+        "required": true,
+        "description": "Teks yang mau ditulis di papan",
+        "schema": { "type": "string", "example": "Kapan Dinzo Apis rilis?" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Meme Image",
+        "content": { "image/png": {} }
+      }
+    }
+  }
+},
     "/tools/ocr": {
   "get": {
     "summary": "Image to Text (OCR)",
