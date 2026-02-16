@@ -45,6 +45,39 @@
         }
       }
     },
+    "/ai/heckai": {
+  "get": {
+    "summary": "Heckai AI Premium (Grok-3 & Llama-4)",
+    "description": "Chat dengan model AI terbaru seperti Grok-3 Mini atau Llama-4 Scout melalui Heckai.",
+    "tags": ["AI"],
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Pertanyaan untuk AI",
+        "schema": { "type": "string", "example": "Jelaskan apa itu Grok-3!" }
+      },
+      {
+        "name": "model",
+        "in": "query",
+        "required": false,
+        "description": "Pilihan model: x-ai/grok-3-mini-beta, meta-llama/llama-4-scout",
+        "schema": { "type": "string", "default": "x-ai/grok-3-mini-beta" }
+      },
+      {
+        "name": "sessionId",
+        "in": "query",
+        "required": false,
+        "description": "Session ID untuk melanjutkan percakapan (opsional)",
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": { "description": "Berhasil mendapatkan jawaban" }
+    }
+  }
+},
     "/ai/copilot-voice": {
   "get": {
     "summary": "Copilot Voice AI (JSON)",
